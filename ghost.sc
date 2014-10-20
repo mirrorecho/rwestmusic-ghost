@@ -3,6 +3,14 @@
 s.boot
 
 // formant synthesis... better to look at examples here: "http://sccode.org/tag/category/formant synthesis"
+
+// and here: "http://www.sussex.ac.uk/Users/nc81/modules/cm1/scfiles/12.2 Singing Voice Synthesis.html"
+
+// SYNTHS:
+// do harmonic analysis on flute... and then bend it
+// sine (or other) waves with crazy vibrato
+// smoothGhosts: constantly changing pitches of several sine waves
+
 (
 var freq =  120;
 {
@@ -12,6 +20,36 @@ var freq =  120;
 	Resonz.ar(WhiteNoise.ar(0.1!2), 870, 0.001, 2) +
 	Resonz.ar(WhiteNoise.ar(0.04!2), 2250, 0.001, 1);
 }.play;
+)
+
+
+(
+SynthDef(\wobbleGhost, {
+	arg wobbleHz = 12, spread=0.125, freq=440, amp=0.6, gate=1;
+	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
+	wobbleRate = LFNoise2.kr(1!2).range(wobbleHz, wobbleHz * 1.5);
+	wobbleSig = SinOsc.kr(wobbleRate, mul:spread * freq);
+	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp);
+	sig2 = SinOsc.ar((freq * 1.02) + wobbleSig[1], mul:amp);
+	sigOut = Splay.ar([sig1, sig2], spread:0.8);
+	sigOut = FreeVerb2.ar(sigOut[0], sigOut[1], mix:0.4);
+	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	sigOut = sigOut * env;
+	Out.ar(0, sigOut);
+}).add;
+)
+
+(
+x = Synth.new(\wobbleGhost, [
+	\wobbleHz, 2,
+	\spread, 0.125,
+	\amp, 0.6,
+	\freq, 440
+]);
+)
+
+(
+x.set(\gate, 0);
 )
 
 
