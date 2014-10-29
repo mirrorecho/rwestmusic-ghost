@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"define",
+				"define_cell"
+			],
+			[
 				"cell",
 				"cell_index"
 			],
@@ -55,7 +59,15 @@
 			"file": "ghost_structure.py",
 			"settings":
 			{
-				"buffer_size": 768,
+				"buffer_size": 1068,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
+			"settings":
+			{
+				"buffer_size": 383,
 				"line_ending": "Unix"
 			}
 		}
@@ -63,9 +75,13 @@
 	"build_system": "Packages/Virtualenv/Python + Virtualenv.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 414.0,
 		"selected_items":
 		[
+			[
+				"vir",
+				"Virtualenv: Activate"
+			],
 			[
 				"v",
 				"Virtualenv: Activate"
@@ -75,7 +91,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 522.0
 	},
 	"console":
 	{
@@ -97,7 +113,7 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/randallwest/Code/mirrorecho/rwestmusic-ghost"
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost"
 	],
 	"file_history":
 	[
@@ -151,7 +167,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -160,20 +176,48 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 768,
+						"buffer_size": 1068,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								490,
-								490
+								930,
+								930
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 383,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -218,7 +262,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 100.0
+		"height": 247.0
 	},
 	"output.find_results":
 	{
