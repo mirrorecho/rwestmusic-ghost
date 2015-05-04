@@ -1,4 +1,10 @@
 ##########################################
+# sublime text ignores
+
+*.sublime-workspace
+
+
+##########################################
 # SuperCollider gitignore (from https://github.com/supercollider/supercollider/blob/master/.gitignore)
 
 # mac related files

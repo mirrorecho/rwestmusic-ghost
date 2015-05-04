@@ -1,0 +1,213 @@
+
+
+s.boot
+
+// TO DO
+// create the "ghost" as a synth def:
+// - - formant synth
+// - - with some flute sounds
+// - - walk through circle of 5ths in random walk
+// - - constant relationship to A & E
+// - - some other pitched sounds (piano?)
+// - - random flourishes, clangs, and creepers
+
+// able to kick off 2 "ghosts"
+// - - defined period of time
+
+// shape the story
+// - - input data from a "ghost" source
+// - - can choose length, story shape, and possibly source material
+
+// create score in python/abjad and lilypond
+// - - current pitch combo AND simple markov process determines cues
+
+
+// mastering, etc.
+// - - reverb
+// - - amplification, reaction to flute sounds
+
+
+// create standalone application for mac OSX
+
+
+(
+SynthDef(\wobbleGhost, {
+	arg wobbleHz = 12, spread=0.125, freq=120, amp=0.6, gate=1;
+	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
+	wobbleRate = LFNoise2.kr(1!2).range(wobbleHz, wobbleHz * 1.5);
+	wobbleSig = SinOsc.kr(wobbleRate, mul:spread * freq);
+	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp * 0.5);
+	sig2 = SinOsc.ar((freq * 1.02) + wobbleSig[1], mul:amp * 0.5);
+	sigOut = Splay.ar([sig1, sig2], spread:0.8);
+	sigOut = FreeVerb2.ar(sigOut[0], sigOut[1], mix:0.4);
+	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	sigOut = sigOut * env;
+	Out.ar(0, sigOut);
+}).add;
+
+SynthDef(\smoothGhosts, {
+	arg moveHz=4, loFreq=440, hiFreq=880, gate=1, amp=1.0;
+	var freq, sig, sig2, env, ghostCount=22;
+	freq = LFNoise2.kr(moveHz!ghostCount).exprange(loFreq, hiFreq);
+	amp = LFNoise2.kr(moveHz!ghostCount).exprange(0.01, 1.0);
+	//amp = amp / (ghostCount/2);
+	sig = SinOsc.ar(freq) * amp;
+	sig2 = Splay.ar(sig, spread:0.9);
+	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.4);
+	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	sig2 = sig2 * env;
+	Out.ar(0, sig2);
+}).add;
+
+SynthDef( \noiseGhost, {
+	arg freq=220, gate=1, amp=1.0;
+	var sig, sig2, env;
+	sig = Resonz.ar(Crackle.ar(1.98!2), freq, 0.04, 12) +
+	Resonz.ar(WhiteNoise.ar(0.6!2), freq * 2, 0.01, 6) +
+	Resonz.ar(WhiteNoise.ar(0.2!2), 300, 0.001, 4) +
+	Resonz.ar(WhiteNoise.ar(0.1!2), 870, 0.001, 2) +
+	Resonz.ar(WhiteNoise.ar(0.04!2), 2250, 0.001, 1);
+	sig = sig * amp;
+	sig2 = Splay.ar(sig, spread:0.9);
+	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.4);
+	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	sig2 = sig2 * env;
+	Out.ar(0, sig2);
+}).add;
+)
+
+
+
+(
+    f = { 3.yield; };
+    x = Routine({ f.loop });
+    10.do({ x.next.postln })
+)
+
+(
+
+g = Task {
+
+	var ghost, pitchClassG, pitchClassH;
+
+	ghost = { | pitchClass = 10 |
+		// to do... play the pitches
+
+		// to do... preference for staying on the same pitch...
+		pitchClass = pitchClass + (rrand(-1, 1) * 7) % 12; // randomly move through circle of 5ths
+	};
+
+	pitchClassG = 10;
+	pitchClassH = [0,1,2,3,5,6,7,8].choose;
+	loop {
+		rrand(3.0,8.0).wait;
+		pitchClassG = ghost.value(pitchClassG);
+		pitchClassH = ghost.value(pitchClassH);
+		postln([pitchClassG, pitchClassH]);
+	}
+};
+
+g.start;
+
+)
+
+(
+g.stop;
+
+)
+
+
+
+//waitVal = rrand(3.0,8.0);
+//waitVal.wait;
+
+
+//g = Routine( { f.loop } );
+//h = Routine( { ghost.loop } );
+
+
+// loop
+
+)
+
+
+
+
+
+
+(
+// a SynthDef
+SynthDef(\test, { | out, freq = 440, amp = 0.1, nharms = 10, pan = 0, gate = 1 |
+    var audio = Blip.ar(freq, nharms, amp);
+    var env = Linen.kr(gate, doneAction: 2);
+    OffsetOut.ar(out, Pan2.ar(audio, pan, env) );
+}).add;
+)
+
+(
+Pbind(*[
+	instrument:'test',
+	freq: Prand([1, 1.2, 2, 2.5, 3, 4], inf) * 200,
+	dur: 0.1
+]).play;
+)
+
+
+(
+a = 4;
+a.do {a.postln;}
+)
+
+(1..9) ++ ([0.1, 0.2] * 10);
+
+(
+var ghost_settings1 = [\noiseGhost, [
+	amp: 1.0,
+	freq: 220
+]];
+
+//new(Synth, *l); // or...
+Synth(*ghost_settings1);
+
+)
+
+
+(
+x = Synth(\noiseGhost, [
+	amp: 1.0,
+	freq: 220
+]);
+)
+
+(
+w = Synth(\noiseGhost, [
+	amp: 0.8,
+	freq: 220 * (3/2)
+]);
+)
+
+(
+v = Synth(\noiseGhost, [
+	amp: 0.6,
+	freq: 440
+]);
+)
+
+
+(
+y = Synth.new(\wobbleGhost, [
+	wobbleHz: 1,
+	spread: 0.04,
+	amp: 0.4,
+	freq: 440
+]);
+)
+
+
+(
+z = Synth.new(\smoothGhosts, [
+	moveHz: 1,
+	amp: 0.4,
+	loFreq: 220,
+	hiFreq: 440]);
+)

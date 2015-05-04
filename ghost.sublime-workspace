@@ -56,18 +56,10 @@
 	"buffers":
 	[
 		{
-			"file": "ghost_structure.py",
+			"contents": "",
 			"settings":
 			{
-				"buffer_size": 1068,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
-			"settings":
-			{
-				"buffer_size": 383,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -117,6 +109,8 @@
 	],
 	"file_history":
 	[
+		"/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost_structure.py",
 		"/Users/randallwest/Code/planning/planning/settings.py",
 		"/Users/randallwest/Code/planning/planning/urls.py",
 		"/Users/randallwest/Code/planning/myapa/urls.py",
@@ -167,44 +161,15 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ghost_structure.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1068,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								930,
-								930
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 383,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
@@ -217,6 +182,7 @@
 						],
 						"settings":
 						{
+							"auto_name": "",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -284,11 +250,15 @@
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 563.0,
 		"selected_items":
 		[
+			[
+				"",
+				"~/Code/mirrorecho/rwestmusic-tokei/tokei.sublime-project"
+			]
 		],
-		"width": 380.0
+		"width": 428.0
 	},
 	"select_symbol":
 	{
@@ -306,7 +276,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 252.0,
+	"side_bar_width": 281.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
