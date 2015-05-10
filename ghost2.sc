@@ -1,7 +1,5 @@
 
 
-s.boot
-
 // TO DO
 // create the "ghost" as a synth def:
 // - - formant synth
@@ -29,8 +27,13 @@ s.boot
 
 // create standalone application for mac OSX
 
+// look at weirdo.sc (in sandbox)... bloo is a nice synth
+
+
+s.boot;
 
 (
+
 SynthDef(\wobbleGhost, {
 	arg wobbleHz = 12, spread=0.125, freq=120, amp=0.6, gate=1;
 	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
@@ -76,6 +79,33 @@ SynthDef( \noiseGhost, {
 }).add;
 )
 
+Pwalk
+Prand
+Pfunc
+Ppar
+
+// Flock of Seagulls!
+(
+p = Pbind(
+    \degree, Pslide((-6, -4 .. 12), 8, 3, 1, 0),
+    \dur, Pseq(#[0.1, 0.1, 0.2], inf),
+    \sustain, 0.15
+).play;
+)
+
+(
+Pbind(*[
+	instrument: \wobbleGhost,
+	midinote: Pwhite([70, 71, 72]),
+	dur: Pwhite(0.2, 2.0)
+]).play;
+)
+
+p.play;
+p.mute;
+p.unmute;
+p.reset;
+p.stop;
 
 
 (
@@ -88,22 +118,40 @@ SynthDef( \noiseGhost, {
 
 g = Task {
 
-	var ghost, pitchClassG, pitchClassH;
+	var ghost, pitchClassG, pitchClassH, lowPitchG, lowPitchH;
+
+	Pbind
+	Ppar
 
 	ghost = { | pitchClass = 10 |
 		// to do... play the pitches
 
 		// to do... preference for staying on the same pitch...
 		pitchClass = pitchClass + (rrand(-1, 1) * 7) % 12; // randomly move through circle of 5ths
+
 	};
 
 	pitchClassG = 10;
 	pitchClassH = [0,1,2,3,5,6,7,8].choose;
 	loop {
+		postln([pitchClassG, pitchClassH]);
+
+		lowPitchG = (pitchClassG + 45).midicps;
+		lowPitchH = (pitchClassH + 45).midicps;
+		x = Synth(\smoothGhosts, [
+			\moveHz, 1,
+			\amp, 0.6,
+			\loFreq, lowPitchG,
+			\hiFreq, lowPitchH]);
+
 		rrand(3.0,8.0).wait;
+
+		x.set(\gate, 0);
+
 		pitchClassG = ghost.value(pitchClassG);
 		pitchClassH = ghost.value(pitchClassH);
-		postln([pitchClassG, pitchClassH]);
+
+
 	}
 };
 
