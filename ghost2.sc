@@ -52,7 +52,7 @@ SynthDef(\smoothGhosts, {
 	arg moveHz=4, loFreq=440, hiFreq=880, gate=1, amp=1.0;
 	var freq, sig, sig2, env, ghostCount=22;
 	freq = LFNoise2.kr(moveHz!ghostCount).exprange(loFreq, hiFreq);
-	amp = LFNoise2.kr(moveHz!ghostCount).exprange(0.01, 1.0);
+	amp = LFNoise2.kr(moveHz!ghostCount).exprange(0.01, amp);
 	//amp = amp / (ghostCount/2);
 	sig = SinOsc.ar(freq) * amp;
 	sig2 = Splay.ar(sig, spread:0.9);
@@ -93,11 +93,33 @@ p = Pbind(
 ).play;
 )
 
+t = 79;
+t = 78;
+t = 92;
+
 (
-Pbind(*[
-	instrument: \wobbleGhost,
-	midinote: Pwhite([70, 71, 72]),
-	dur: Pwhite(0.2, 2.0)
+q = Pmono(*[
+	\wobbleGhost,
+	midinote: Prand([t, 80, 80, 82, 82, 84, 85, 87], inf),
+	dur: 0.4
+]).play;
+)
+
+p.stop;
+q.stop;
+
+r = (instrument: \smoothGhosts, loFreq: 880, hiFreq:440, amp: 0.1, dur: 8.0).play;
+
+r.stop;
+
+Pseries
+
+(
+p = Pbind(*[
+	instrument: Prand([\noiseGhost, \wobbleGhost], inf),
+	midinote: Prand([80, 80, 82, 82, 84, 85, 87, [80, 84], [80, 85], Rest], inf),
+	//dur: Pwhite(0.2, 2.0)
+	dur: Prand([0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.8], inf)
 ]).play;
 )
 
@@ -106,6 +128,7 @@ p.mute;
 p.unmute;
 p.reset;
 p.stop;
+
 
 
 (
