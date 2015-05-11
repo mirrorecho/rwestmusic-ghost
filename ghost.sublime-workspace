@@ -56,18 +56,31 @@
 	"buffers":
 	[
 		{
-			"contents": "",
+			"file": ".gitignore",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "_sync.sh",
+			"settings":
+			{
+				"buffer_size": 262,
 				"line_ending": "Unix"
 			}
 		}
 	],
 	"build_system": "Packages/Virtualenv/Python + Virtualenv.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 414.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -161,29 +174,58 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": ".gitignore",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 1511,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								450,
+								450
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "_sync.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								170,
+								170
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -201,7 +243,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 44.0
 	},
 	"layout":
 	{
@@ -234,6 +276,7 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "",
 	"project": "ghost.sublime-project",
 	"replace":
 	{
@@ -243,6 +286,7 @@
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -251,6 +295,7 @@
 	"select_project":
 	{
 		"height": 563.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -263,6 +308,7 @@
 	"select_symbol":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
