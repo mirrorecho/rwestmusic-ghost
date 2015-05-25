@@ -77,7 +77,7 @@ SynthDef(\smoothGhosts, {
 }).add;
 
 SynthDef( \noiseGhost, {
-	arg freq=220, gate=1, amp=1.0, slideTime = 0.2;
+	arg freq=220, gate=1, amp=1.0, slideTime = 1.0;
 	var sig, sig2, env;
 	freq = Lag.kr(freq, slideTime);
 	sig = Resonz.ar(Crackle.ar(1.98!2), freq, 0.04, 12) +
@@ -88,23 +88,75 @@ SynthDef( \noiseGhost, {
 	sig = sig * amp;
 	sig2 = Splay.ar(sig, spread:0.9);
 	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.4);
-	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	env = EnvGen.kr(Env.asr(0.5, 1, 1), gate:gate, doneAction:2);
 	sig2 = sig2 * env;
 	Out.ar(0, sig2);
 }).add;
+
+SynthDef( \jiGhost, {
+	arg freq=220, jiFreq=110, gate=1, amp=1.0, slideTime = 2.0;
+	var sig, sig2, env, jiOsc1, jiOsc2, jiOsc3, ampOsc, sirenSig, jiSig;
+	freq = Lag.kr(freq, slideTime);
+	// fundamental osc:
+	jiOsc1 = (SinOsc.kr((0.01!2), 0, 0.5, 0.5) * jiFreq * 10/9) + jiFreq;
+	// formant osc:
+	jiOsc2 = (SinOsc.kr((0.66!2), 0, 0.5, 0.5) * jiFreq * 2) + jiFreq;
+	// width osc:
+	jiOsc3 = (SinOsc.kr((0.2!2), 0, 0.5, 0.5) * jiFreq * 8) + jiFreq;
+	ampOsc = SinOsc.ar(freq, 0, 0.5, 0.5);
+	sirenSig = Formant.ar(jiOsc1, freq , jiOsc3, 0.04);
+	jiSig = Formant.ar(jiFreq, jiOsc2, freq * 2, 0.25 * ampOsc);
+	sig = jiSig + sirenSig;
+	//sirenSig = sirenSig +
+	sig = sig + Klank.ar(`[[freq, jiFreq, freq*2, 800, 1071, 1353, 1723], nil, [1, 1, 1, 1, 1, 1, 1]], PinkNoise.ar(0.001));
+	sig2 = Splay.ar(sig, spread:0.9);
+	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.9);
+	env = EnvGen.kr(Env.asr(24, 1, 12, \sine), gate:gate, doneAction:2);
+	sig2 = sig2 * env;
+	Out.ar(0, sig2);
+}).add;
+
+)
+
+(
+Pbind(*[
+	Ppar(
+])
 )
 
 
+
 (
+var numSections = 8;
+var jiNote = -4;
+var jiFreq = (jiNote + 60).midicps;
+var jiStack = [0, 7];
+var noteCycle = [0,7,2,9,4,11,6,1,8,3,10,5]; //circle of fifths
+var sectionLengths = [6, 12];
+
 q = Pmono(*[
-	\wobbleGhost,
+	\jiGhost,
+	jiFreq: jiFreq / 4,
 	note: Pwalk(
-		[0,7,2,9,4,11,6,1,8,3,10,5],
+		(noteCycle + jiNote),
 		Prand([-2,-1, 0, 1, 1, 2], inf)
 	),
-	dur: 8,
+	dur: Prand(sectionLengths, numSections),
+	amp:0.9,
 	legato: 1.0,
-]).play;
+]).trace.play;
+
+/*q = Pmono(*[
+	\noiseGhost,
+	note: Pwalk(
+		(noteCycle + jiNote) +.t jiStack,
+		Prand([-2,-1, 0, 1, 1, 2], inf)
+	),
+	dur: Prand(sectionLengths, numSections),
+	amp:[0.6, 0.2],
+	legato: 1.0,
+]).play;*/
+
 )
 
 q.stop;
@@ -145,6 +197,9 @@ Pseries
 Pser
 Pwhite
 Pchain
+
+// example of easy table creation:
+[1,2,3,4] +.t [0,7];
 
 
 // Flock of Seagulls!
