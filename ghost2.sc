@@ -29,8 +29,21 @@
 
 // look at weirdo.sc (in sandbox)... bloo is a nice synth
 
+// Use an envelope to pan notes from left to right and back
+
+
+p.stop;
+
+
 
 s.boot;
+
+(
+p = Pbind(
+    \degree, Pif(Ptime(inf) < 4.0, Pwhite(-4, 11, inf)),
+    \dur, 0.25
+).play;
+)
 
 (
 
@@ -117,7 +130,7 @@ Pseries
 (
 p = Pbind(*[
 	instrument: Prand([\noiseGhost, \wobbleGhost], inf),
-	midinote: Prand([80, 80, 82, 82, 84, 85, 87, [80, 84], [80, 85], Rest], inf),
+	midinote: (Prand([80, 80, 82, 82, 84, 85, 87, [80, 84], [80, 85], Rest], inf) / 2),
 	//dur: Pwhite(0.2, 2.0)
 	dur: Prand([0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.8], inf)
 ]).play;
