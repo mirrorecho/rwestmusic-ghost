@@ -48,8 +48,9 @@ p = Pbind(
 (
 
 SynthDef(\wobbleGhost, {
-	arg wobbleHz = 12, spread=0.125, freq=120, amp=0.6, gate=1;
+	arg wobbleHz = 12, spread=0.125, freq=120, slideTime = 0.2, amp=0.6, gate=1;
 	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
+	freq = Lag.kr(freq, slideTime);
 	wobbleRate = LFNoise2.kr(1!2).range(wobbleHz, wobbleHz * 1.5);
 	wobbleSig = SinOsc.kr(wobbleRate, mul:spread * freq);
 	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp * 0.5);
@@ -76,8 +77,9 @@ SynthDef(\smoothGhosts, {
 }).add;
 
 SynthDef( \noiseGhost, {
-	arg freq=220, gate=1, amp=1.0;
+	arg freq=220, gate=1, amp=1.0, slideTime = 0.2;
 	var sig, sig2, env;
+	freq = Lag.kr(freq, slideTime);
 	sig = Resonz.ar(Crackle.ar(1.98!2), freq, 0.04, 12) +
 	Resonz.ar(WhiteNoise.ar(0.6!2), freq * 2, 0.01, 6) +
 	Resonz.ar(WhiteNoise.ar(0.2!2), 300, 0.001, 4) +
@@ -92,10 +94,58 @@ SynthDef( \noiseGhost, {
 }).add;
 )
 
+
+(
+q = Pmono(*[
+	\wobbleGhost,
+	note: Pwalk(
+		[0,7,2,9,4,11,6,1,8,3,10,5],
+		Prand([-2,-1, 0, 1, 1, 2], inf)
+	),
+	dur: 8,
+	legato: 1.0,
+]).play;
+)
+
+q.stop;
+
+
+(
+var pitchLines = (
+	ghost: Pser([1, 0, -3], inf),
+);
+
+var rhythms = (
+	ghosts: [
+		Pser([0.25, 0.75, 1], 3),
+		Pser([0.25, 0.25, 1.5], 3)
+	]
+);
+
+p = Pbind(*[
+	instrument: \noiseGhost,
+	note: pitchLines.ghost,
+	dur: Prand(rhythms.ghosts, 8)
+	]).play;
+)
+
+p.play;
+p.stop;
+
+
+
+Pnsym1
 Pwalk
 Prand
 Pfunc
 Ppar
+Place
+Ppatlace
+Pseries
+Pser
+Pwhite
+Pchain
+
 
 // Flock of Seagulls!
 (
@@ -126,6 +176,8 @@ r = (instrument: \smoothGhosts, loFreq: 880, hiFreq:440, amp: 0.1, dur: 8.0).pla
 r.stop;
 
 Pseries
+
+
 
 (
 p = Pbind(*[
