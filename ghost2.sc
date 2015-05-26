@@ -48,16 +48,18 @@ p = Pbind(
 (
 
 SynthDef(\wobbleGhost, {
-	arg wobbleHz = 12, spread=0.125, freq=120, slideTime = 0.2, amp=0.6, gate=1;
+	arg wobbleHz = 4, spread=0.125, freq=120, slideTime = 3.0, amp=0.6, gate=1;
 	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
 	freq = Lag.kr(freq, slideTime);
+	amp = Lag.kr(amp, slideTime);
+	wobbleHz = Lag.kr(wobbleHz, slideTime);
 	wobbleRate = LFNoise2.kr(1!2).range(wobbleHz, wobbleHz * 1.5);
 	wobbleSig = SinOsc.kr(wobbleRate, mul:spread * freq);
 	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp * 0.5);
 	sig2 = SinOsc.ar((freq * 1.02) + wobbleSig[1], mul:amp * 0.5);
 	sigOut = Splay.ar([sig1, sig2], spread:0.8);
 	sigOut = FreeVerb2.ar(sigOut[0], sigOut[1], mix:0.4);
-	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
+	env = EnvGen.kr(Env.adsr(2, 2, 0.5, 4, 1, \sine), gate:gate, doneAction:2);
 	sigOut = sigOut * env;
 	Out.ar(0, sigOut);
 }).add;
@@ -88,7 +90,7 @@ SynthDef( \noiseGhost, {
 	sig = sig * amp;
 	sig2 = Splay.ar(sig, spread:0.9);
 	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.4);
-	env = EnvGen.kr(Env.asr(0.5, 1, 1), gate:gate, doneAction:2);
+	env = EnvGen.kr(Env.asr(8, 1, 8, \sine), gate:gate, doneAction:2);
 	sig2 = sig2 * env;
 	Out.ar(0, sig2);
 }).add;
@@ -100,7 +102,7 @@ SynthDef( \jiGhost, {
 	// fundamental osc:
 	jiOsc1 = (SinOsc.kr((0.01!2), 0, 0.5, 0.5) * jiFreq * 10/9) + jiFreq;
 	// formant osc:
-	jiOsc2 = (SinOsc.kr((0.66!2), 0, 0.5, 0.5) * jiFreq * 2) + jiFreq;
+	jiOsc2 = (SinOsc.kr((0.133!2), 0, 0.5, 0.5) * jiFreq) + jiFreq;
 	// width osc:
 	jiOsc3 = (SinOsc.kr((0.2!2), 0, 0.5, 0.5) * jiFreq * 8) + jiFreq;
 	ampOsc = SinOsc.ar(freq, 0, 0.5, 0.5);
@@ -111,55 +113,83 @@ SynthDef( \jiGhost, {
 	sig = sig + Klank.ar(`[[freq, jiFreq, freq*2, 800, 1071, 1353, 1723], nil, [1, 1, 1, 1, 1, 1, 1]], PinkNoise.ar(0.001));
 	sig2 = Splay.ar(sig, spread:0.9);
 	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.9);
-	env = EnvGen.kr(Env.asr(24, 1, 12, \sine), gate:gate, doneAction:2);
+	env = EnvGen.kr(Env.asr(8, 1, 8, \sine), gate:gate, doneAction:2);
 	sig2 = sig2 * env;
 	Out.ar(0, sig2);
 }).add;
 
+
+SynthDef( \jiGhost2,{
+	arg freq=55, amp=1.0, gate=1;
+	var sig, sig2, env;
+	sig = Saw.ar((freq!2), 0.09) + LFCub.ar(freq*2,mul:0.04) + LFCub.ar(freq*3,mul:0.02) + LFCub.ar(freq*4,mul:0.01);
+	sig = LPF.ar(sig, freq*16);
+	sig = sig * amp;
+	sig2 = FreeVerb2.ar(sig[0], sig[1], mix:1.0);
+	env = EnvGen.kr(Env.asr(24, 1, 36, \sine), gate:gate, doneAction:2);
+	sig2 = sig2 * env;
+	Out.ar(0, sig2);
+}).add;
+
+
 )
 
-(
-Pbind(*[
-	Ppar(
-])
+
+
 )
 
 
-
 (
-var numSections = 8;
+var numSections = 12;
 var jiNote = -4;
 var jiFreq = (jiNote + 60).midicps;
 var jiStack = [0, 7];
 var noteCycle = [0,7,2,9,4,11,6,1,8,3,10,5]; //circle of fifths
-var sectionLengths = [6, 12];
+var sectionLengths = [9,12];
+var refNote = 0;
+var refLength = 12; // the length between each cycle...
 
-q = Pmono(*[
-	\jiGhost,
-	jiFreq: jiFreq / 4,
-	note: Pwalk(
-		(noteCycle + jiNote),
-		Prand([-2,-1, 0, 1, 1, 2], inf)
-	),
-	dur: Prand(sectionLengths, numSections),
-	amp:0.9,
-	legato: 1.0,
+p = Ptpar([
+	// just a way to set global data....
+	refLength, Pbind(*[
+		note: \rest,
+		myNote:Pwalk(
+			(noteCycle + jiNote + 6),
+			Prand([-2,-1, 0, 1, 1, 1, 2], inf)
+		).collect( {arg x; refNote = x; postln(refNote); } ),
+		dur: Prand(sectionLengths, numSections).collect( {arg x; refLength = x; } ),
+	]),
+	0, Pmono(*[
+		\jiGhost2,
+		freq:jiFreq / 4,
+		dur: Pfuncn({ refLength }, numSections),
+		amp:0.3,
+	]),
+	refLength, Pmono(*[
+		\wobbleGhost,
+		wobbleHz:Pwhite(1, 8),
+		note:Pfuncn({ refNote + 36 }, numSections),
+		dur: Pfuncn({ refLength }, numSections),
+		amp: Prand([0.0001, 0.006, 0.01, 0.03], numSections),
+	]),
+	refLength, PmonoArtic(*[
+		\jiGhost,
+		jiFreq: jiFreq / 4,
+		note: Pwrand([Pfuncn({ refNote }, 1), \rest], [0.7, 0.3], numSections),
+		dur: Pfunc { refLength },
+		amp:[0.9],
+	]),
+	refLength, PmonoArtic(*[
+		\noiseGhost,
+		note: Pwrand([Pfuncn({ refNote +.t jiStack }, 1), \rest], [0.4, 0.6], numSections),
+		dur: Pfunc { refLength },
+		amp:[0.4, 0.2],
+	]),
 ]).trace.play;
-
-/*q = Pmono(*[
-	\noiseGhost,
-	note: Pwalk(
-		(noteCycle + jiNote) +.t jiStack,
-		Prand([-2,-1, 0, 1, 1, 2], inf)
-	),
-	dur: Prand(sectionLengths, numSections),
-	amp:[0.6, 0.2],
-	legato: 1.0,
-]).play;*/
 
 )
 
-q.stop;
+p.stop;
 
 
 (
