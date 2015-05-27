@@ -1,16 +1,16 @@
 
 
 // TO DO
-// create the "ghost" as a synth def:
-// - - formant synth
+// more "ghosts" as a synth defs:
 // - - with some flute sounds
-// - - walk through circle of 5ths in random walk
-// - - constant relationship to A & E
 // - - some other pitched sounds (piano?)
-// - - random flourishes, clangs, and creepers
 
-// able to kick off 2 "ghosts"
-// - - defined period of time
+// other synth defs:
+// - - sampled sounds
+// - - for random flourishes, clangs, and creepers
+// - - percussive sounds
+
+// able to construct small figures
 
 // shape the story
 // - - input data from a "ghost" source
@@ -36,7 +36,7 @@ p.stop;
 
 
 
-s.boot;
+
 
 (
 p = Pbind(
@@ -46,6 +46,8 @@ p = Pbind(
 )
 
 (
+
+s.boot;
 
 SynthDef(\wobbleGhost, {
 	arg wobbleHz = 4, spread=0.125, freq=120, slideTime = 3.0, amp=0.6, gate=1;
@@ -118,6 +120,19 @@ SynthDef( \jiGhost, {
 	Out.ar(0, sig2);
 }).add;
 
+SynthDef( \claw, {
+	arg freq = 2000, amp=0.6; // assume gate is not needed since there is no sustain
+	var vibFreq, sig, sig2, env, release=3;
+	vibFreq = Vibrato.kr((freq!2), rate:12, depth:0.09, delay:0.01, onset:0.6, rateVariation:0.1, depthVariation:0.2);
+	sig = Saw.ar(vibFreq);
+	sig = sig + SinOsc.ar(vibFreq * 2, mul:0.6);
+	env = EnvGen.kr(Env.perc(0.02, release, 1, -22), doneAction:2);
+	sig = LPF.ar(sig, 11000);
+	sig = sig * env * amp;
+	sig2 = Splay.ar(sig, spread:0.9);
+	sig2 = FreeVerb2.ar(sig2[0], sig2[1], mix:0.2);
+	Out.ar(0, sig2);
+}).add;
 
 SynthDef( \jiGhost2,{
 	arg freq=55, amp=1.0, gate=1;
@@ -136,7 +151,11 @@ SynthDef( \jiGhost2,{
 
 
 
-)
+
+
+// GREAT envelope for swells!
+Env.perc(attackTime:4, releaseTime:0.01, level:1, curve:4).test.plot;
+
 
 
 (
@@ -147,7 +166,20 @@ var jiStack = [0, 7];
 var noteCycle = [0,7,2,9,4,11,6,1,8,3,10,5]; //circle of fifths
 var sectionLengths = [9,12];
 var refNote = 0;
-var refLength = 12; // the length between each cycle...
+var refLength = 9; // the length between each cycle...
+
+
+var pitchLines = (
+	claw: Pser([1, 12, 21], inf),
+);
+
+var rhythms = (
+	claws: [
+		Pser([0.25, 0.75, 1], 3),
+		Pser([0.25, 0.25, 1.5], 3)
+	]
+);
+
 
 p = Ptpar([
 	// just a way to set global data....
@@ -163,8 +195,18 @@ p = Ptpar([
 		\jiGhost2,
 		freq:jiFreq / 4,
 		dur: Pfuncn({ refLength }, numSections),
-		amp:0.3,
+		amp:0.4,
 	]),
+	// THIS GUY NEEDS WORK:
+/*	refLength,Pn(
+		Pxrand([
+			Pbind(*[
+				instrument:\claw,
+				amp:0.1,
+				note:pitchLines.claw + Pfunc { refNote + 24 },
+				dur:Prand(rhythms.claws, 3)
+			]),
+		]), */
 	refLength, Pmono(*[
 		\wobbleGhost,
 		wobbleHz:Pwhite(1, 8),
@@ -177,32 +219,23 @@ p = Ptpar([
 		jiFreq: jiFreq / 4,
 		note: Pwrand([Pfuncn({ refNote }, 1), \rest], [0.7, 0.3], numSections),
 		dur: Pfunc { refLength },
-		amp:[0.9],
+		amp:[1.0],
 	]),
 	refLength, PmonoArtic(*[
 		\noiseGhost,
 		note: Pwrand([Pfuncn({ refNote +.t jiStack }, 1), \rest], [0.4, 0.6], numSections),
 		dur: Pfunc { refLength },
-		amp:[0.4, 0.2],
+		amp:[0.6, 0.4],
 	]),
 ]).trace.play;
 
 )
 
+p.trace.play;
 p.stop;
 
 
-(
-var pitchLines = (
-	ghost: Pser([1, 0, -3], inf),
-);
 
-var rhythms = (
-	ghosts: [
-		Pser([0.25, 0.75, 1], 3),
-		Pser([0.25, 0.25, 1.5], 3)
-	]
-);
 
 p = Pbind(*[
 	instrument: \noiseGhost,
@@ -227,6 +260,7 @@ Pseries
 Pser
 Pwhite
 Pchain
+Pstep
 
 // example of easy table creation:
 [1,2,3,4] +.t [0,7];
@@ -408,7 +442,7 @@ w = Synth(\noiseGhost, [
 )
 
 (
-v = Synth(\noiseGhost, [
+v = Synth(\clang, [
 	amp: 0.6,
 	freq: 440
 ]);

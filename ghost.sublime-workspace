@@ -55,22 +55,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 1511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "_sync.sh",
-			"settings":
-			{
-				"buffer_size": 262,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/Virtualenv/Python + Virtualenv.sublime-build",
 	"build_system_choices":
@@ -122,6 +106,8 @@
 	],
 	"file_history":
 	[
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/_sync.sh",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/.gitignore",
 		"/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost_structure.py",
 		"/Users/randallwest/Code/planning/planning/settings.py",
@@ -174,66 +160,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": ".gitignore",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1511,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								450,
-								450
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "_sync.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 262,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								262,
-								262
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
