@@ -2,8 +2,10 @@
 	"folders":
 	[
 		{
-			"follow_symlinks": true,
 			"path": "."
+		},
+		{
+			"path": "/Users/randallwest/Code/mirrorecho/calliope"
 		}
 	],
 	"virtualenv": "/home/randall/Code/venvs/abjad_2.15"

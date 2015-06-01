@@ -1,4 +1,7 @@
 from abjad import *
+import settings
+from calliope.tools import music_from_durations
+
 from collections import OrderedDict
 import random
 
@@ -47,38 +50,57 @@ class Section:
                 ref_pitches=[(d + i) % 12 for d in double_intervals] 
                 ))
 
+    def get_music(self):
+        section_staff = abjad.scoretools.Staff()
+        for l in self.lines:
+            section_staff.extend(l.get_music())
+        return section_staff
+
 class Event:
     """
     represents the choice of a given pitch/rhythm cell combination at a particular point in the score, 
     several events in a row make a line...
     """
-    def __init__(self):
+    def __init__(self, ghost):
+        self.ghost = ghost
         self.material_names = [] # names of both pitch and rhythm material
         self.music = None
+        self.length = None
 
-    def choose_cells(self):
-        pass
+    def cell_by_type(self, cell_type):
+        for n in material_names:
+            if self.ghost.cells[n].cell_type=cell_type:
+                return self.ghost.cells[n]
+
+    def length(self):
+        return my_event.cell_by_type("rhythm").length
 
     def get_music(self):
         """
-        for debugging use only... 
+        returns abjad music Container for this event
         """
-        pass
+        return music_from_durations(
+            durations = cell_by_type("rhythm").material,
+            pitches = cell_by_type("pitch").material
+            ))=
 
 class Line:
-    def __init__(self, name, section, ref_pitches):
+    def __init__(self, name, section, ref_pitches, length=1):
         self.events = []
         self.ref_pitches = ref_pitches
         self.section = section
         self.name = name
-        self.current_index = None
+        self.length = 1 # maybe poor naming? could be confused with event array length?
+
+    def events_length(self):
+        return sum([e.length() for e in self.events])
 
     def current_index(self):
         return len(self.events) - 1
 
     def get_event(self, back_index=0):
         if self.current is not None:
-            return self.events[self.current_index + back_index]
+            return self.events[self.current_index() + back_index]
 
     def choose_for_type(self, cell_type):
         cells = [c for c in self.section.ghost.cells if c.cell_type = cell_type]
@@ -91,16 +113,25 @@ class Line:
             if sum(cell_weights[: i + 1]) >= weight_counter:
                 return cells[i]
 
-
     def next(self):
-        my_event = Event()
-        self.events.append(my_event)
+        if self.length - self.events_length >= self.section.ghost.min_event_length:
 
-        first_material_type =  random.choice(["pitch","rhythm"])
-        my_event.material_names.append(self.choose_for_type(first_material_type).name)
+            my_event = Event(ghost=self.section.ghost)
+            self.events.append(my_event)
 
-        second_material_type = "pitch" if first_material_type = "rhythm" else "rhythm"
-        my_event.material_names.append(self.choose_for_type(second_material_type).name)        
+            first_material_type =  random.choice(["pitch","rhythm"])
+            my_event.material_names.append(self.choose_for_type(first_material_type).name)
+
+            second_material_type = "pitch" if first_material_type = "rhythm" else "rhythm"
+            my_event.material_names.append(self.choose_for_type(second_material_type).name)   
+        else:
+            return None
+
+    def get_music(self):
+        line_staff = scoretools.Staff()
+        while self.next:
+            line_staff.extend(self.get_event().get_music())
+        return line_staff
 
 
 
@@ -110,11 +141,13 @@ class Cell:
     along with weights for probability of where this 
     material may occur in the overall structure of the piece
     """
-    def __init__(self, ghost, name, cell_type="pitch", material=None, default_weight=4, *args, **kwargs):
+    def __init__(self, ghost, name, cell_type="pitch", material=None, length=0.25, *args, **kwargs):
         self.name = name
         self.cell_type = "pitch"
         self.material = material # either a list of pitches, or a list of c notes (with rhythm, articulations, dynamics)
         self.weights = []
+        if self.cell_type = "rhythm":
+            self.length = length
 
         # for s_name in ghost.sections:
         #     self.weights.sections[s_name] = default_weight
@@ -147,31 +180,23 @@ class Cell:
 
 class Ghost:
     """
-    define cells... defined with:
-    - pitches or rhythms
-    - weight for occuring during a given perfomance section
-    - weight for occuring during a given ref pitch
-    - weight for occuring alongisde pitch/rhythm
-    - weight for occuring following prev cell (both pitch and rhythm)
-    - weight for occuring following prev-prev cell (both pitch and rhythm)
-    rhythm cell ... defined with:
-    - 
+
     """
     #TO DO:
-    # - define cell pitch / rhythm combination probabilities
-    # - define pitch cell probability in terms of electronic ref pitch
-    # - define rhythm cell probability in terms of beginning/middle/end
-    # - define pitch / rhythm cell probability in terms of markov chain
-    # - further develop possible pitch / rhythm material... generate and curate
+    # - able to output actual music
+    # - test probabilities
+    # - test actual music output
+    # - develop possible pitch / rhythm material... generate and curate
+    # - actually prevent overflow of cell lengths?
     # - work out numbered sections in relation to electronic cued sections
     # - printable formatted score that works for performance along with electronics
     # - show electronics flourishes, with cued cells
     # - final development of pitch / rhythm material... generate and curate
 
 
-    def __init__(self, markov_order=2):
+    def __init__(self, min_event_length=0.25):
         self.cells = {} # each cell is a named list of notes
-        self.markov_order = markov_order
+        self.min_event_length = 0.25
         self.sections = []
 
     def add_section(self, *args, **kwargs):
@@ -183,32 +208,15 @@ class Ghost:
     def add_weight(self, cell_name, *args, **kwargs):
         self.cells[cell_name].add_weight(*args, **kwargs)
 
-    # def define_cell(self, cell_name, cell_ly):
-    #     self.cells[cell_name] = [Note(note) for note in cell_ly.split()]
-
-    # def add_cell(self, cell_name, transposition=0, durations=[]):
-    #     #append_notes = [scoretools.Note(self.pitches[pitch_index], durations[0]) for pitch_index in self.cells[cell_index]]
-    #     #self.notes.extend(append_notes)
-    #     self.notes.extend(self.cells[cell_name])
-
-
     def get_music(self):
-        pass
+        ghost_staff = scoretools.Staff()
+        for s in self.sections:
+            ghost_staff.extend(s.get_music())
+        return ghost_staff
+
+    def get_score(self):
+        score = scoretools.Score()
+        score.append(self.get_music())
+        return score
 
 
-# ghost1 = Ghost()
-# ghost1.define_cell('moan', "gf'8 f'4.")
-# # ghost1.define_cell('moan', "gf'8 f'4.")
-
-# ghost1.slur_cell('moan')
-# ghost1.add_cell('moan')
-
-# # to do... output notes as JSON data
-
-# flute_staff.extend(ghost1.notes)
-
-
-# score.append(flute_staff)
-
-
-# show(score)

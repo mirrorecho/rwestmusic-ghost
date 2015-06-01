@@ -1,4 +1,9 @@
 ##########################################
+# development environment specific settings
+
+settings.py
+
+##########################################
 # sublime text ignores
 
 *.sublime-workspace
@@ -99,3 +104,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+*.sublime-workspace

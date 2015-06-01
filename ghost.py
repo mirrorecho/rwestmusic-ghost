@@ -14,3 +14,5 @@ g.add_cell("r_2holds", type="rhythm", material="c1\\fermata c1\\fermata")
 
 g.add_weight("r_2holds", 0.4, sections=("A","C",) )
 g.add_weight("r_2holds", 0, combos=(("r_2holds",-1), ) ) # except never repeat 2holds twice in a row
+
+show(g.get_score())
