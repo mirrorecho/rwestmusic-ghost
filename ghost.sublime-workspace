@@ -4,12 +4,68 @@
 		"selected_items":
 		[
 			[
-				"define",
-				"define_cell"
+				"first",
+				"first_material_type"
+			],
+			[
+				"choose",
+				"choose_for_type"
+			],
+			[
+				"weight",
+				"weight_counter"
 			],
 			[
 				"cell",
-				"cell_index"
+				"cell_weights"
+			],
+			[
+				"wei",
+				"weight_for_line"
+			],
+			[
+				"first_",
+				"first_material"
+			],
+			[
+				"Ce",
+				"CellWeight"
+			],
+			[
+				"appli",
+				"applies_at_all"
+			],
+			[
+				"ref",
+				"ref_pitches"
+			],
+			[
+				"this",
+				"this_event"
+			],
+			[
+				"Score",
+				"ScoreSection"
+			],
+			[
+				"inter",
+				"intervals"
+			],
+			[
+				"previous",
+				"previous_index"
+			],
+			[
+				"Ghost",
+				"GhostCell〔class〕"
+			],
+			[
+				"markov",
+				"markov_order"
+			],
+			[
+				"define",
+				"define_cell"
 			],
 			[
 				"perm",
@@ -55,6 +111,22 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "ghost_structure.py",
+			"settings":
+			{
+				"buffer_size": 6675,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ghost.py",
+			"settings":
+			{
+				"buffer_size": 729,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/Virtualenv/Python + Virtualenv.sublime-build",
 	"build_system_choices":
@@ -63,8 +135,8 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 414.0,
-		"last_filter": "",
+		"height": 448.0,
+		"last_filter": "vir",
 		"selected_items":
 		[
 			[
@@ -80,7 +152,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 522.0
+		"width": 666.0
 	},
 	"console":
 	{
@@ -106,6 +178,7 @@
 	],
 	"file_history":
 	[
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/test.ly",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/_sync.sh",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/.gitignore",
 		"/home/randall/Downloads/Bodonitown/Manfred Klein License.txt",
@@ -160,8 +233,70 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "ghost_structure.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3852,
+								3852
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1056.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ghost.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 729,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								729,
+								729
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"open_with_edit": true,
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -198,13 +333,13 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 247.0
+		"height": 328.0
 	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/Virtualenv/Python + Virtualenv.sublime-build",
 	"project": "ghost.sublime-project",
 	"replace":
 	{

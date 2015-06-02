@@ -149,17 +149,6 @@ class Cell:
         if self.cell_type = "rhythm":
             self.length = length
 
-        # for s_name in ghost.sections:
-        #     self.weights.sections[s_name] = default_weight
-        # for r_name in ghost.refs:
-        #     self.weights.refs[r_name] = default_weight
-        # for c_name, cell in ghost.cells.items(): #this or enumerate?
-        #     for i in range(ghost.markov_order + 1):
-        #         # add weight default to this cell for other cell:
-        #         self.weights.combos[i][c_name] = default_weight
-        #         # add weight default to other cell for this cell:
-        #         cell.weights.combos[i][name] = default_weight
-
     def add_weight(self, *args, **kwargs):
         self.weights.append(CellWeight(*args, **kwargs))
 
