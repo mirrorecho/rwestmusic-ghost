@@ -10,6 +10,16 @@ s.freeAll;
 
 {var sig; sig = SinOsc.ar(440, mul:0.1); Out.ar(~masterBus, sig);}.play;
 
+(
+p = Pbind(
+	\instrument, \wobbleGhost,
+	\note, Prand([0,5,7, \rest], inf),
+	\octave, Prand([5,6,7,8], inf),
+	\wobbleHz, Pwhite(0.4, 8),
+	\spread, Pwhite(0.012, 0.22),
+).trace.play;
+)
+p.stop;
 
 (
 var numSections = 12;

@@ -7,17 +7,17 @@ SynthDef("masterOut", {
 }).add;
 
 SynthDef(\wobbleGhost, {
-	arg wobbleHz = 4, spread=0.125, freq=120, slideTime = 3.0, amp=0.6, gate=1;
+	arg wobbleHz = 4, spread=0.125, freq=120, slideTime = 0.2, amp=0.6, gate=1;
 	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
 	freq = Lag.kr(freq, slideTime);
 	amp = Lag.kr(amp, slideTime);
 	wobbleHz = Lag.kr(wobbleHz, slideTime);
 	wobbleRate = LFNoise2.kr(1!2).range(wobbleHz, wobbleHz * 1.5);
 	wobbleSig = SinOsc.kr(wobbleRate, mul:spread * freq);
-	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp * 0.5);
-	sig2 = SinOsc.ar((freq * 1.02) + wobbleSig[1], mul:amp * 0.5);
+	sig1 = SinOsc.ar((freq * 0.98) + wobbleSig[0], mul:amp * 0.69);
+	sig2 = SinOsc.ar((freq * 1.02) + wobbleSig[1], mul:amp * 0.69);
 	sigOut = Splay.ar([sig1, sig2], spread:0.8);
-	env = EnvGen.kr(Env.adsr(2, 2, 0.5, 4, 1, \sine), gate:gate, doneAction:2);
+	env = EnvGen.kr(Env.adsr(0.01, 0.12, 0.4, 4, 1, \sine), gate:gate, doneAction:2);
 	sigOut = sigOut * env;
 	Out.ar(~masterBus, sigOut);
 }).add;
