@@ -24,14 +24,14 @@ class CellWeight:
         self.combos = combos
 
     def weight_applies(self, line):
-        if self.sections is not None and line.section not in self.sections:
+        if self.sections is not None and line.section.name not in self.sections:
             return False
         if self.ref_pitches is not None and not any(p in line.ref_pitches for p in self.ref_pitches):
             return False
         if self.combos is not None:
             for combo in self.combos:
-                back_index = 0 if len(combo) = 1 else combo[1]
-                if (line.current_index + back_index) >= 0 and combo[0] not in line.get_event(back_index).material_names:
+                back_index = 0 if len(combo) == 1 else combo[1]
+                if (line.current_index() + back_index) >= 0 and combo[0] not in line.get_event(back_index).material_names:
                     return False
         return True
 
@@ -43,15 +43,17 @@ class Section:
     def __init__(self, ghost, name="_", first_line=1, start_intervals=[0,1,2,3,4,5], double_intervals=[0,6]):
         self.lines = []
         self.ghost = ghost
+        self.name = name
         for i in start_intervals:
             self.lines.append( Line(
-                str(i+first_line) 
+                str(i+first_line),
                 section=self, 
                 ref_pitches=[(d + i) % 12 for d in double_intervals] 
                 ))
 
     def get_music(self):
-        section_staff = abjad.scoretools.Staff()
+        print("SECTION: " + self.name)
+        section_staff = scoretools.Staff()
         for l in self.lines:
             section_staff.extend(l.get_music())
         return section_staff
@@ -64,25 +66,24 @@ class Event:
     def __init__(self, ghost):
         self.ghost = ghost
         self.material_names = [] # names of both pitch and rhythm material
-        self.music = None
-        self.length = None
 
     def cell_by_type(self, cell_type):
-        for n in material_names:
-            if self.ghost.cells[n].cell_type=cell_type:
+        for n in self.material_names:
+            if self.ghost.cells[n].cell_type==cell_type:
                 return self.ghost.cells[n]
 
     def length(self):
-        return my_event.cell_by_type("rhythm").length
+        return self.cell_by_type("rhythm").length
 
     def get_music(self):
         """
         returns abjad music Container for this event
         """
-        return music_from_durations(
-            durations = cell_by_type("rhythm").material,
-            pitches = cell_by_type("pitch").material
-            ))=
+        music = music_from_durations(
+            durations = self.cell_by_type("rhythm").material,
+            pitches = self.cell_by_type("pitch").material
+            )
+        return music
 
 class Line:
     def __init__(self, name, section, ref_pitches, length=1):
@@ -99,37 +100,50 @@ class Line:
         return len(self.events) - 1
 
     def get_event(self, back_index=0):
-        if self.current is not None:
+        if self.current_index() >=0:
             return self.events[self.current_index() + back_index]
 
     def choose_for_type(self, cell_type):
-        cells = [c for c in self.section.ghost.cells if c.cell_type = cell_type]
+        cells = [c for c_name, c in self.section.ghost.cells.items() if c.cell_type == cell_type]
         cell_weights = [c.weight_for_line(self) for c in cells]
         selection = random.uniform(0,sum(cell_weights))
+        # print(" -- choosing: " + cell_type + " with weights " + str([c.name for c in cells]))
 
-        weight_counter = 0
         for i in range(len(cells)):
-            weight_counter += cell_weights[i]
-            if sum(cell_weights[: i + 1]) >= weight_counter:
+            if sum(cell_weights[: i + 1]) >= selection:
+                print(" ---- chose: " + cells[i].name)
                 return cells[i]
 
     def next(self):
-        if self.length - self.events_length >= self.section.ghost.min_event_length:
+        if self.length - self.events_length() >= self.section.ghost.min_event_length:
 
             my_event = Event(ghost=self.section.ghost)
             self.events.append(my_event)
 
-            first_material_type =  random.choice(["pitch","rhythm"])
-            my_event.material_names.append(self.choose_for_type(first_material_type).name)
-
-            second_material_type = "pitch" if first_material_type = "rhythm" else "rhythm"
-            my_event.material_names.append(self.choose_for_type(second_material_type).name)   
+            # Could better DRY:
+            material_type =  random.choice(["pitch","rhythm"])
+            my_cell = self.choose_for_type(material_type)
+            if my_cell:
+                my_event.material_names.append(my_cell.name)
+            else:
+                self.events.pop()
+                return False
+            material_type = "pitch" if material_type == "rhythm" else "rhythm"
+            my_cell = self.choose_for_type(material_type)
+            if my_cell:
+                my_event.material_names.append(my_cell.name)
+                return True
+            else:
+                self.events.pop()
+                return False
         else:
-            return None
+            self.events.pop()
+            return False
 
     def get_music(self):
+        print(" - (line: " + self.name + ")")
         line_staff = scoretools.Staff()
-        while self.next:
+        while self.next():
             line_staff.extend(self.get_event().get_music())
         return line_staff
 
@@ -143,10 +157,10 @@ class Cell:
     """
     def __init__(self, ghost, name, cell_type="pitch", material=None, length=0.25, *args, **kwargs):
         self.name = name
-        self.cell_type = "pitch"
+        self.cell_type = cell_type
         self.material = material # either a list of pitches, or a list of c notes (with rhythm, articulations, dynamics)
         self.weights = []
-        if self.cell_type = "rhythm":
+        if self.cell_type == "rhythm":
             self.length = length
 
     def add_weight(self, *args, **kwargs):
@@ -160,7 +174,7 @@ class Cell:
         applies_at_all = 0
         applied_weights = 1
         for w in self.weights:
-            if w.weight_applies(line)
+            if w.weight_applies(line):
                 applies_at_all = 1
                 applied_weights *= w.weight
         return applies_at_all * applied_weights
@@ -189,10 +203,10 @@ class Ghost:
         self.sections = []
 
     def add_section(self, *args, **kwargs):
-        self.sections.append(Section(*args, **kwargs))
+        self.sections.append(Section(self, *args, **kwargs))
 
     def add_cell(self, name, *args, **kwargs):
-        self.cells[name] = Cell(*args, **kwargs)
+        self.cells[name] = Cell(self, name, *args, **kwargs)
 
     def add_weight(self, cell_name, *args, **kwargs):
         self.cells[cell_name].add_weight(*args, **kwargs)

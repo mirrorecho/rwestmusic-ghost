@@ -115,7 +115,7 @@
 			"file": "ghost_structure.py",
 			"settings":
 			{
-				"buffer_size": 6675,
+				"buffer_size": 7476,
 				"line_ending": "Unix"
 			}
 		},
@@ -123,7 +123,7 @@
 			"file": "ghost.py",
 			"settings":
 			{
-				"buffer_size": 729,
+				"buffer_size": 987,
 				"line_ending": "Unix"
 			}
 		}
@@ -174,10 +174,12 @@
 	},
 	"expanded_folders":
 	[
-		"/home/randall/Code/mirrorecho/rwestmusic-ghost"
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost",
+		"/home/randall/Code/mirrorecho/calliope"
 	],
 	"file_history":
 	[
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost.sublime-project",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/test.ly",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/_sync.sh",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/.gitignore",
@@ -233,7 +235,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -242,15 +244,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6675,
+						"buffer_size": 7476,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3852,
-								3852
+								251,
+								251
 							]
 						],
 						"settings":
@@ -261,10 +263,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1056.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -273,15 +275,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 729,
+						"buffer_size": 987,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								729,
-								729
+								649,
+								649
 							]
 						],
 						"settings":
@@ -294,7 +296,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

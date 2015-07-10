@@ -5,7 +5,7 @@
 			"path": "."
 		},
 		{
-			"path": "/Users/randallwest/Code/mirrorecho/calliope"
+			"path": "../calliope"
 		}
 	],
 	"virtualenv": "/home/randall/Code/venvs/abjad_2.15"
