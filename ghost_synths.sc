@@ -77,7 +77,8 @@ SynthDef( \claw, {
 	arg freq = 2000, amp=0.6; // assume gate is not needed since there is no sustain
 	var vibFreq, sig, sig2, env, release=3;
 	vibFreq = Vibrato.kr((freq!2), rate:12, depth:0.09, delay:0.01, onset:0.6, rateVariation:0.1, depthVariation:0.2);
-	sig = Saw.ar(vibFreq);
+	sig = Pulse.ar(vibFreq);
+	sig = RLPF.ar(sig, LFNoise2.kr(3).exprange(90, 8800), 0.1);
 	sig = sig + SinOsc.ar(vibFreq * 2, mul:0.6);
 	env = EnvGen.kr(Env.perc(0.02, release, 1, -22), doneAction:2);
 	sig = LPF.ar(sig, 11000);

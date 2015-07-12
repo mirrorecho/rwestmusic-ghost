@@ -3,6 +3,8 @@
 // still do the walking 5ths ()
 // very quiet hidden flute sounds slowly uncovered
 // flute becomes crazier and crazier
+// little cues in the electro signal flute phrases
+// flute vibrato or Flz. to match?
 
 // electronic sounds of breathing in!
 

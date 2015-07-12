@@ -20,6 +20,24 @@ p = Pbind(
 ).trace.play;
 )
 p.stop;
+(
+~licks = [
+	[11, 23, 28, 30],
+];
+p = Pbind(
+	\instrument, \claw,
+	\note, Prand([0,5,7, \rest], inf),
+	\octave, Prand([5,6,7], inf),
+	\dur, 0.25
+).trace.play;
+)
+p.stop;
+
+Pspawner({ arg sp;
+	sp.par()
+});
+
+
 
 (
 var numSections = 12;
