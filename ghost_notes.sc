@@ -45,7 +45,10 @@ p.stop;
 
 (
 p = Pbind(
-    \degree, Pif(Ptime(inf) < 4.0, Pwhite(-4, 11, inf)),
+    \instrument, "flute",
+    \degree, Pif( Ptime() < 4.0, Pwhite(-4, 11, inf)),
+    \ibreath, Pwhite(0.001, 0.4),
+    \legato, 0.01,
     \dur, 0.25
 ).play;
 )
@@ -53,13 +56,22 @@ p = Pbind(
 p.trace.play;
 p.stop;
 
+Ptime.help;
 
 s.scope;
 s.meter;
 
+// change one parameter
+(
+Pbind(
+    \degree, Pstep( Pseq([1, 2, 3, 4, 5]), 1.0).trace,
+    \dur, Pseries(0.1, 0.1, 15)
+).play;
+)
+
 
 p = Pbind(*[
-	instrument: \noiseGhost,
+	instrument: \flute,
 	note: pitchLines.ghost,
 	dur: Prand(rhythms.ghosts, 8)
 	]).play;

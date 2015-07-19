@@ -5,7 +5,10 @@
 			"path": "."
 		},
 		{
-			"path": "../calliope"
+			"path": "/home/randall/Code/mirrorecho/calliope"
+		},
+		{
+			"path": "/home/randall/Code/mirrorecho/superstudio"
 		}
 	],
 	"virtualenv": "/home/randall/Code/venvs/abjad_2.15"

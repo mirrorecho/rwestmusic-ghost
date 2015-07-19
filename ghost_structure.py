@@ -14,9 +14,11 @@ flute_staff = scoretools.Staff()
 
 # cell = name, pitches
 
-p = [ ("p_stitch"), ("r_yoyo",-1) ]
+p = [("p_stitch"), ("r_yoyo", -1)]
+
 
 class CellWeight:
+
     def __init__(self, weight, sections=None, ref_pitches=None, combos=None):
         self.weight = weight
         self.sections = sections
@@ -24,9 +26,10 @@ class CellWeight:
         self.combos = combos
 
     def weight_applies(self, line):
-        if self.sections is not None and line.section.name not in self.sections:
+        if (self.sections is not None and line.section.name not in self.sections):
             return False
-        if self.ref_pitches is not None and not any(p in line.ref_pitches for p in self.ref_pitches):
+        if self.ref_pitches is not None and not any(p in
+                                                    line.ref_pitches for p in self.ref_pitches):
             return False
         if self.combos is not None:
             for combo in self.combos:
@@ -37,19 +40,21 @@ class CellWeight:
 
 
 class Section:
+
     """
     main sections that define the overall form of the piece. (e.g. A, B, C)
     """
-    def __init__(self, ghost, name="_", first_line=1, start_intervals=[0,1,2,3,4,5], double_intervals=[0,6]):
+
+    def __init__(self, ghost, name="_", first_line=1, start_intervals=[0, 1, 2, 3, 4, 5], double_intervals=[0, 6]):
         self.lines = []
         self.ghost = ghost
         self.name = name
         for i in start_intervals:
-            self.lines.append( Line(
+            self.lines.append(Line(
                 str(i+first_line),
-                section=self, 
-                ref_pitches=[(d + i) % 12 for d in double_intervals] 
-                ))
+                section=self,
+                ref_pitches=[(d + i) % 12 for d in double_intervals]
+            ))
 
     def get_music(self):
         print("SECTION: " + self.name)
@@ -58,18 +63,21 @@ class Section:
             section_staff.extend(l.get_music())
         return section_staff
 
+
 class Event:
+
     """
     represents the choice of a given pitch/rhythm cell combination at a particular point in the score, 
     several events in a row make a line...
     """
+
     def __init__(self, ghost):
         self.ghost = ghost
-        self.material_names = [] # names of both pitch and rhythm material
+        self.material_names = []  # names of both pitch and rhythm material
 
     def cell_by_type(self, cell_type):
         for n in self.material_names:
-            if self.ghost.cells[n].cell_type==cell_type:
+            if self.ghost.cells[n].cell_type == cell_type:
                 return self.ghost.cells[n]
 
     def length(self):
@@ -80,18 +88,21 @@ class Event:
         returns abjad music Container for this event
         """
         music = music_from_durations(
-            durations = self.cell_by_type("rhythm").material,
-            pitches = self.cell_by_type("pitch").material
-            )
+            durations=self.cell_by_type("rhythm").material,
+            pitches=self.cell_by_type("pitch").material
+        )
         return music
 
+
 class Line:
+
     def __init__(self, name, section, ref_pitches, length=1):
         self.events = []
         self.ref_pitches = ref_pitches
         self.section = section
         self.name = name
-        self.length = 1 # maybe poor naming? could be confused with event array length?
+        # maybe poor naming? could be confused with event array length?
+        self.length = 1
 
     def events_length(self):
         return sum([e.length() for e in self.events])
@@ -100,13 +111,14 @@ class Line:
         return len(self.events) - 1
 
     def get_event(self, back_index=0):
-        if self.current_index() >=0:
+        if self.current_index() >= 0:
             return self.events[self.current_index() + back_index]
 
     def choose_for_type(self, cell_type):
-        cells = [c for c_name, c in self.section.ghost.cells.items() if c.cell_type == cell_type]
+        cells = [
+            c for c_name, c in self.section.ghost.cells.items() if c.cell_type == cell_type]
         cell_weights = [c.weight_for_line(self) for c in cells]
-        selection = random.uniform(0,sum(cell_weights))
+        selection = random.uniform(0, sum(cell_weights))
         # print(" -- choosing: " + cell_type + " with weights " + str([c.name for c in cells]))
 
         for i in range(len(cells)):
@@ -121,7 +133,7 @@ class Line:
             self.events.append(my_event)
 
             # Could better DRY:
-            material_type =  random.choice(["pitch","rhythm"])
+            material_type = random.choice(["pitch", "rhythm"])
             my_cell = self.choose_for_type(material_type)
             if my_cell:
                 my_event.material_names.append(my_cell.name)
@@ -148,17 +160,20 @@ class Line:
         return line_staff
 
 
-
 class Cell:
+
     """
     defines material as either a row of pitches, or a rhythm (rhythm includes articulations and dynamics)... 
     along with weights for probability of where this 
     material may occur in the overall structure of the piece
     """
+
     def __init__(self, ghost, name, cell_type="pitch", material=None, length=0.25, *args, **kwargs):
         self.name = name
         self.cell_type = cell_type
-        self.material = material # either a list of pitches, or a list of c notes (with rhythm, articulations, dynamics)
+        # either a list of pitches, or a list of c notes (with rhythm,
+        # articulations, dynamics)
+        self.material = material
         self.weights = []
         if self.cell_type == "rhythm":
             self.length = length
@@ -180,12 +195,12 @@ class Cell:
         return applies_at_all * applied_weights
 
 
-
 class Ghost:
+
     """
 
     """
-    #TO DO:
+    # TO DO:
     # - able to output actual music
     # - test probabilities
     # - test actual music output
@@ -196,9 +211,8 @@ class Ghost:
     # - show electronics flourishes, with cued cells
     # - final development of pitch / rhythm material... generate and curate
 
-
     def __init__(self, min_event_length=0.25):
-        self.cells = {} # each cell is a named list of notes
+        self.cells = {}  # each cell is a named list of notes
         self.min_event_length = 0.25
         self.sections = []
 
@@ -221,5 +235,3 @@ class Ghost:
         score = scoretools.Score()
         score.append(self.get_music())
         return score
-
-

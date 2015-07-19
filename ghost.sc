@@ -1,7 +1,3 @@
-
-
-s.boot
-
 // formant synthesis... better to look at examples here: "http://sccode.org/tag/category/formant synthesis"
 
 // and here: "http://www.sussex.ac.uk/Users/nc81/modules/cm1/scfiles/12.2 Singing Voice Synthesis.html"
@@ -10,6 +6,35 @@ s.boot
 // do harmonic analysis on flute... and then bend it
 // sine (or other) waves with crazy vibrato
 // smoothGhosts: constantly changing pitches of several sine waves
+
+(
+~libraryPath = "/home/randall/Echo/Sounds/Library/";
+
+~breathFiles = [
+    "breath-in/small-01.wav", 
+    "breath-in/small-02.wav", 
+    ];
+
+~breaths=[];
+
+~breathFiles.do { arg bFile;
+    ~breaths = ~breaths ++ [Buffer.read(s, ~libraryPath ++ bFile)];
+}
+)
+
+
+~breaths[0].play;
+
+(
+SynthDef(\breather, {arg bufnum;
+	sig = PlayBuf.ar(2,
+		bufnum:bufnum,
+		doneAction:2
+		);
+}).add;
+)
+
+
 
 (
 var freq =  120;
