@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"load",
+				"loadRelative"
+			],
+			[
 				"as",
 				"asSymbol"
 			],
@@ -135,7 +139,15 @@
 			"file": "/home/randall/Code/mirrorecho/superstudio/ss.sc",
 			"settings":
 			{
-				"buffer_size": 1069,
+				"buffer_size": 1143,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/randall/Code/mirrorecho/superstudio/modules/synth.library.sc",
+			"settings":
+			{
+				"buffer_size": 940,
 				"line_ending": "Unix"
 			}
 		},
@@ -143,7 +155,15 @@
 			"file": "ghost2.sc",
 			"settings":
 			{
-				"buffer_size": 4700,
+				"buffer_size": 4928,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/randall/Code/mirrorecho/superstudio/modules/bus.sc",
+			"settings":
+			{
+				"buffer_size": 262,
 				"line_ending": "Unix"
 			}
 		},
@@ -175,15 +195,15 @@
 			"file": "/home/randall/Code/mirrorecho/superstudio/modules/master.sc",
 			"settings":
 			{
-				"buffer_size": 1671,
+				"buffer_size": 1580,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "[ Environment[ (modules -> [  ]), (loadModule -> a Function), (load -> a Function) ] ]\nLoaded SuperStudio Module: Core properties and functions\nLoaded SuperStudio Module: Synth basics\nLoaded SuperStudio Module: Audio/Control Busses\nLoaded SuperStudio Module: Mastering: Fx Busses and Synths\nLoaded SuperStudio Module: Basic MIDI Controller Utility\nLoaded SuperStudio Module: Simple Synth Library\nLoaded SuperStudio Module: Buffer utilities\n[ core, synth, bus, master, midi, synth.library, buf ]\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nYO--------------------------------------\nEnvironment[ (title -> Audio/Control Busses) ]\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\n-----------------------\n~ss.bus.master created... send all synth outputs here\ndo not pass go do not collect $200\n \nIn arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: an OutputProxy OutputProxy\n   2: an OutputProxy OutputProxy\nSynthDef ss.masterFx build failed\nERROR: In arg: 'bus' has bad input: nil\n\nPROTECTED CALL STACK:\n    SynthDef:checkInputs    0x261a3c0\n        arg this = a SynthDef\n        var firstErr = In arg: 'bus' has bad input: nil\n    SynthDef:finishBuild    0x2615380\n        arg this = a SynthDef\n    a FunctionDef   0x2648e00\n        sourceCode = \"<an open Function>\"\n    Function:prTry  0x24ac380\n        arg this = a Function\n        var result = nil\n        var thread = a Routine\n        var next = nil\n        var wasInProtectedFunc = false\n    \nCALL STACK:\n    Exception:reportError   0x3166b18\n        arg this = <instance of Error>\n    Nil:handleError   0x2fb92b8\n        arg this = nil\n        arg error = <instance of Error>\n    Thread:handleError   0x31b1a08\n        arg this = <instance of Thread>\n        arg error = <instance of Error>\n    Thread:handleError   0x316c448\n        arg this = <instance of Routine>\n        arg error = <instance of Error>\n    Object:throw   0x2fb5218\n        arg this = <instance of Error>\n    Function:protect   0x2f6c318\n        arg this = <instance of Function>\n        arg handler = <instance of Function>\n        var result = <instance of Error>\n    SynthDef:build   0x3275008\n        arg this = <instance of SynthDef>\n        arg ugenGraphFunc = <instance of Function>\n        arg rates = nil\n        arg prependArgs = nil\n    < FunctionDef in closed FunctionDef >  (no arguments or variables)\n    Routine:prStart   0x3031688\n        arg this = <instance of Routine>\n        arg inval = 8449.7877469063\n^^ The preceding error dump is for ERROR: In arg: 'bus' has bad input: nil\n",
+			"contents": "/home/randall/\nfile \"/home/randall/Code/mirorrecho/superstudio/ss.sc\" does not exist.\nnil\nEnvironment[ (modules -> [  ]), (loadModule -> a Function), (load -> a Function) ]\nLoaded SuperStudio Module: Core properties and functions\nLoaded SuperStudio Module: Synth basics\nLoaded SuperStudio Module: Audio/Control Busses\nLoaded SuperStudio Module: Mastering: Fx Busses and Synths\nLoaded SuperStudio Module: Basic MIDI Controller Utility\nLoaded SuperStudio Module: Simple Synth Library\nLoaded SuperStudio Module: Buffer utilities\n[ core, synth, bus, master, midi, synth.library, buf ]\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: a MulAdd MulAdd\n   2: a MulAdd MulAdd\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: a MulAdd MulAdd\n   2: a MulAdd MulAdd\nSynthDef ss.spacey build failed\nERROR: Out arg: 'bus' has bad input: nil\n\nPROTECTED CALL STACK:\n    SynthDef:checkInputs    0x2409c40\n        arg this = a SynthDef\n        var firstErr = Out arg: 'bus' has bad input: nil\n    SynthDef:finishBuild    0x2404c00\n        arg this = a SynthDef\n    a FunctionDef   0x2438680\n        sourceCode = \"<an open Function>\"\n    Function:prTry  0x229bc00\n        arg this = a Function\n        var result = nil\n        var thread = a Routine\n        var next = nil\n        var wasInProtectedFunc = false\n    \nCALL STACK:\n    Exception:reportError   0x2f1c0a8\n        arg this = <instance of Error>\n    Nil:handleError   0x2f0b1f8\n        arg this = nil\n        arg error = <instance of Error>\n    Thread:handleError   0x1801328\n        arg this = <instance of Thread>\n        arg error = <instance of Error>\n    Thread:handleError   0x2fa7988\n        arg this = <instance of Routine>\n        arg error = <instance of Error>\n    Object:throw   0x2f17f38\n        arg this = <instance of Error>\n    Function:protect   0x2ca5258\n        arg this = <instance of Function>\n        arg handler = <instance of Function>\n        var result = <instance of Error>\n    SynthDef:build   0x7f44c003efc8\n        arg this = <instance of SynthDef>\n        arg ugenGraphFunc = <instance of Function>\n        arg rates = nil\n        arg prependArgs = nil\n    < closed FunctionDef >   0x2fd9c68\n        arg ss = <instance of Environment>\n        arg module = <instance of Environment>\n    < FunctionDef in closed FunctionDef >  (no arguments or variables)\n    Routine:prStart   0x2f281c8\n        arg this = <instance of Routine>\n        arg inval = 4850.7545959949\n^^ The preceding error dump is for ERROR: Out arg: 'bus' has bad input: nil\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: a BinaryOpUGen BinaryOpUGen\n   2: a BinaryOpUGen BinaryOpUGen\nSynthDef ss.buf.play build failed\nERROR: Out arg: 'bus' has bad input: nil\n\nPROTECTED CALL STACK:\n    SynthDef:checkInputs    0x2409c40\n        arg this = a SynthDef\n        var firstErr = Out arg: 'bus' has bad input: nil\n    SynthDef:finishBuild    0x2404c00\n        arg this = a SynthDef\n    a FunctionDef   0x2438680\n        sourceCode = \"<an open Function>\"\n    Function:prTry  0x229bc00\n        arg this = a Function\n        var result = nil\n        var thread = a Routine\n        var next = nil\n        var wasInProtectedFunc = false\n    \nCALL STACK:\n    Exception:reportError   0x2f5ef08\n        arg this = <instance of Error>\n    Nil:handleError   0x2e4af08\n        arg this = nil\n        arg error = <instance of Error>\n    Thread:handleError   0x2d632f8\n        arg this = <instance of Thread>\n        arg error = <instance of Error>\n    Thread:handleError   0x2c0afa8\n        arg this = <instance of Routine>\n        arg error = <instance of Error>\n    Object:throw   0x2c2a088\n        arg this = <instance of Error>\n    Function:protect   0x2ea5248\n        arg this = <instance of Function>\n        arg handler = <instance of Function>\n        var result = <instance of Error>\n    SynthDef:build   0x2c16e08\n        arg this = <instance of SynthDef>\n        arg ugenGraphFunc = <instance of Function>\n        arg rates = nil\n        arg prependArgs = nil\n    < closed FunctionDef >   0x2fdf5c8\n        arg ss = <instance of Environment>\n        arg module = <instance of Environment>\n    < FunctionDef in closed FunctionDef >  (no arguments or variables)\n    Routine:prStart   0x2f17b18\n        arg this = <instance of Routine>\n        arg inval = 4850.7545959949\n^^ The preceding error dump is for ERROR: Out arg: 'bus' has bad input: nil\n-----------------------\n~ss.bus.master created... send all synth outputs here\ndo not pass go do not collect $200\n \n-----------------------\nss.masterFx and ss.masterOut synths created\n \n",
 			"settings":
 			{
-				"buffer_size": 2914,
+				"buffer_size": 4854,
 				"line_ending": "Unix",
 				"name": "SuperCollider - Post",
 				"scratch": true
@@ -366,7 +386,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -375,15 +395,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1069,
+						"buffer_size": 1143,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								26,
-								26
+								73,
+								73
 							]
 						],
 						"settings":
@@ -396,24 +416,54 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "ghost2.sc",
+					"file": "/home/randall/Code/mirrorecho/superstudio/modules/synth.library.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4700,
+						"buffer_size": 940,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								327,
-								327
+								2,
+								2
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ghost2.sc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4928,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								251,
+								251
 							]
 						],
 						"settings":
@@ -429,7 +479,35 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
+					"file": "/home/randall/Code/mirrorecho/superstudio/modules/bus.sc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "/home/randall/Code/mirrorecho/superstudio/modules/buf.sc",
 					"semi_transient": false,
 					"settings":
@@ -441,8 +519,8 @@
 						"selection":
 						[
 							[
-								831,
-								831
+								742,
+								742
 							]
 						],
 						"settings":
@@ -454,11 +532,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "/home/randall/Code/mirrorecho/superstudio/modules/synth.sc",
 					"semi_transient": false,
 					"settings":
@@ -482,11 +560,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "ghost.sc",
 					"semi_transient": false,
 					"settings":
@@ -511,24 +589,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "/home/randall/Code/mirrorecho/superstudio/modules/master.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1671,
+						"buffer_size": 1580,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								268,
-								268
+								448,
+								448
 							]
 						],
 						"settings":
@@ -537,11 +615,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -551,19 +629,19 @@
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2914,
+						"buffer_size": 4854,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2914,
-								2914
+								4854,
+								4854
 							]
 						],
 						"settings":
@@ -577,7 +655,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -611,7 +689,7 @@
 		"cols":
 		[
 			0.0,
-			0.636735979836,
+			0.535286704474,
 			1.0
 		],
 		"rows":

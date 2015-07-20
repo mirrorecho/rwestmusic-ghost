@@ -1,5 +1,7 @@
 
-"/home/randall/Code/mirrorecho/superstudio/ss.sc".loadPaths;
+"../superstudio/ss.sc".loadRelative;
+
+"~/Code/mirrorecho/superstudio/ss.sc".standardizePath.load;
 
 ~ss.load;
 
