@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"as",
+				"asSymbol"
+			],
+			[
+				"lib",
+				"libraryPath"
+			],
+			[
+				"name",
+				"namespace"
+			],
+			[
 				"bu",
 				"bufnum"
 			],
@@ -120,34 +132,34 @@
 	"buffers":
 	[
 		{
-			"file": "ghost.py",
+			"file": "/home/randall/Code/mirrorecho/superstudio/ss.sc",
 			"settings":
 			{
-				"buffer_size": 987,
+				"buffer_size": 1069,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ghost_structure.py",
+			"file": "ghost2.sc",
 			"settings":
 			{
-				"buffer_size": 7573,
+				"buffer_size": 4700,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "flute_example.sc",
+			"file": "/home/randall/Code/mirrorecho/superstudio/modules/buf.sc",
 			"settings":
 			{
-				"buffer_size": 1775,
+				"buffer_size": 1122,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ghost_notes.sc",
+			"file": "/home/randall/Code/mirrorecho/superstudio/modules/synth.sc",
 			"settings":
 			{
-				"buffer_size": 3813,
+				"buffer_size": 231,
 				"line_ending": "Unix"
 			}
 		},
@@ -155,47 +167,23 @@
 			"file": "ghost.sc",
 			"settings":
 			{
-				"buffer_size": 2462,
+				"buffer_size": 2717,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ghost_synths.sc",
+			"file": "/home/randall/Code/mirrorecho/superstudio/modules/master.sc",
 			"settings":
 			{
-				"buffer_size": 3801,
+				"buffer_size": 1671,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/randall/Code/mirrorecho/superstudio/_sync.sh",
+			"contents": "[ Environment[ (modules -> [  ]), (loadModule -> a Function), (load -> a Function) ] ]\nLoaded SuperStudio Module: Core properties and functions\nLoaded SuperStudio Module: Synth basics\nLoaded SuperStudio Module: Audio/Control Busses\nLoaded SuperStudio Module: Mastering: Fx Busses and Synths\nLoaded SuperStudio Module: Basic MIDI Controller Utility\nLoaded SuperStudio Module: Simple Synth Library\nLoaded SuperStudio Module: Buffer utilities\n[ core, synth, bus, master, midi, synth.library, buf ]\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nMIDI (ALSA): connect failed (Device or resource busy)\nYO--------------------------------------\nEnvironment[ (title -> Audio/Control Busses) ]\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\n-----------------------\n~ss.bus.master created... send all synth outputs here\ndo not pass go do not collect $200\n \nIn arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: an OutputProxy OutputProxy\n   2: an OutputProxy OutputProxy\nSynthDef ss.masterFx build failed\nERROR: In arg: 'bus' has bad input: nil\n\nPROTECTED CALL STACK:\n    SynthDef:checkInputs    0x261a3c0\n        arg this = a SynthDef\n        var firstErr = In arg: 'bus' has bad input: nil\n    SynthDef:finishBuild    0x2615380\n        arg this = a SynthDef\n    a FunctionDef   0x2648e00\n        sourceCode = \"<an open Function>\"\n    Function:prTry  0x24ac380\n        arg this = a Function\n        var result = nil\n        var thread = a Routine\n        var next = nil\n        var wasInProtectedFunc = false\n    \nCALL STACK:\n    Exception:reportError   0x3166b18\n        arg this = <instance of Error>\n    Nil:handleError   0x2fb92b8\n        arg this = nil\n        arg error = <instance of Error>\n    Thread:handleError   0x31b1a08\n        arg this = <instance of Thread>\n        arg error = <instance of Error>\n    Thread:handleError   0x316c448\n        arg this = <instance of Routine>\n        arg error = <instance of Error>\n    Object:throw   0x2fb5218\n        arg this = <instance of Error>\n    Function:protect   0x2f6c318\n        arg this = <instance of Function>\n        arg handler = <instance of Function>\n        var result = <instance of Error>\n    SynthDef:build   0x3275008\n        arg this = <instance of SynthDef>\n        arg ugenGraphFunc = <instance of Function>\n        arg rates = nil\n        arg prependArgs = nil\n    < FunctionDef in closed FunctionDef >  (no arguments or variables)\n    Routine:prStart   0x3031688\n        arg this = <instance of Routine>\n        arg inval = 8449.7877469063\n^^ The preceding error dump is for ERROR: In arg: 'bus' has bad input: nil\n",
 			"settings":
 			{
-				"buffer_size": 314,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/randall/Code/mirrorecho/superstudio/.gitignore",
-			"settings":
-			{
-				"buffer_size": 673,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/randall/Code/mirrorecho/superstudio/start.sc",
-			"settings":
-			{
-				"buffer_size": 2178,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "a Routine\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\nERROR: Meta_Bus:audio: failed to get an audio bus allocated. numChannels: 2 server: localhost\n-----------------------\n~masterBus created... send all synth outputs here\ndo not pass go do not collect $200\n \nIn arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\nOut arg: 'bus' has bad input: nil\n ARGS:\n   bus: nil Nil\n   channelsArray: an OutputProxy OutputProxy\n   2: an OutputProxy OutputProxy\nSynthDef masterFx build failed\nERROR: In arg: 'bus' has bad input: nil\n\nPROTECTED CALL STACK:\n    SynthDef:checkInputs    0x1fa0c80\n        arg this = a SynthDef\n        var firstErr = In arg: 'bus' has bad input: nil\n    SynthDef:finishBuild    0x1f9bc40\n        arg this = a SynthDef\n    a FunctionDef   0x1fcf6c0\n        sourceCode = \"<an open Function>\"\n    Function:prTry  0x1e32c40\n        arg this = a Function\n        var result = nil\n        var thread = a Routine\n        var next = nil\n        var wasInProtectedFunc = false\n    \nCALL STACK:\n    Exception:reportError   0x333f9d8\n        arg this = <instance of Error>\n    Nil:handleError   0x34f1608\n        arg this = nil\n        arg error = <instance of Error>\n    Thread:handleError   0x2f87278\n        arg this = <instance of Thread>\n        arg error = <instance of Error>\n    Thread:handleError   0x28fc498\n        arg this = <instance of Routine>\n        arg error = <instance of Error>\n    Object:throw   0x2b6a0e8\n        arg this = <instance of Error>\n    Function:protect   0x2db9308\n        arg this = <instance of Function>\n        arg handler = <instance of Function>\n        var result = <instance of Error>\n    SynthDef:build   0x40386a8\n        arg this = <instance of SynthDef>\n        arg ugenGraphFunc = <instance of Function>\n        arg rates = nil\n        arg prependArgs = nil\n    < closed FunctionDef >  (no arguments or variables)\n    Routine:prStart   0x138d8e8\n        arg this = <instance of Routine>\n        arg inval = 6887.8104541302\n^^ The preceding error dump is for ERROR: In arg: 'bus' has bad input: nil\nCmdPeriod\n",
-			"settings":
-			{
-				"buffer_size": 2113,
+				"buffer_size": 2914,
 				"line_ending": "Unix",
 				"name": "SuperCollider - Post",
 				"scratch": true
@@ -209,8 +197,8 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 289.0,
-		"last_filter": "inSTALL",
+		"height": 446.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -258,7 +246,7 @@
 				"Virtualenv: Activate"
 			]
 		],
-		"width": 574.0
+		"width": 527.0
 	},
 	"console":
 	{
@@ -281,23 +269,38 @@
 	"expanded_folders":
 	[
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost",
-		"/home/randall/Code/mirrorecho/superstudio"
+		"/home/randall/Code/mirrorecho/superstudio",
+		"/home/randall/Code/mirrorecho/superstudio/modules"
 	],
 	"file_history":
 	[
+		"/home/randall/Code/mirrorecho/superstudio/modules/synth.library.sc",
+		"/home/randall/Code/mirrorecho/superstudio/modules/synth.sc",
+		"/home/randall/Code/mirrorecho/superstudio/modules/master.sc",
+		"/home/randall/Code/mirrorecho/superstudio/modules/midi.sc",
+		"/home/randall/Code/mirrorecho/superstudio/modules/core.sc",
+		"/home/randall/Code/mirrorecho/superstudio/modules/bus.sc",
+		"/home/randall/Code/mirrorecho/superstudio/ss.sc",
+		"/home/randall/Code/mirrorecho/superstudio/.gitignore",
+		"/home/randall/Code/mirrorecho/superstudio/_sync.sh",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost.sc",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost_notes.sc",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/flute_example.sc",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost_structure.py",
+		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost.py",
+		"/home/randall/Code/mirrorecho/superstudio/bus.sc",
+		"/home/randall/Code/mirrorecho/superstudio/func.sc",
 		"/home/randall/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/randall/.config/sublime-text-3/Packages/User/AutoPep8.sublime-settings",
 		"/home/randall/.config/sublime-text-3/Packages/supercollider-sublime/SuperCollider.sublime-settings",
 		"/home/randall/.config/sublime-text-3/Packages/User/SuperCollider.sublime-settings",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/settings.py",
 		"/home/randall/.config/sublime-text-3/Packages/User/GitGutter.sublime-settings",
-		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost.sc",
 		"/home/randall/Downloads/Eisenkraut-master/Eisenkraut.command",
 		"/home/randall/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost.sublime-project",
 		"/home/randall/.config/sublime-text-3/Packages/supercollider-sublime/Default (Linux).sublime-keymap",
 		"/home/randall/.config/sublime-text-3/Packages/GitGutter/Default (Linux).sublime-keymap",
-		"/home/randall/Code/mirrorecho/rwestmusic-ghost/ghost_structure.py",
 		"/home/randall/.cache/.fr-OrJbQe/SuperCollider.sublime-settings",
 		"/home/randall/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/randall/.config/sublime-text-3/Packages/SublimeCodeIntel/Default (Linux).sublime-keymap",
@@ -363,62 +366,117 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ghost.py",
+					"file": "/home/randall/Code/mirrorecho/superstudio/ss.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 987,
+						"buffer_size": 1069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								830,
-								830
+								26,
+								26
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"open_with_edit": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "ghost_structure.py",
+					"file": "ghost2.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7573,
+						"buffer_size": 4700,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								684,
-								684
+								327,
+								327
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/randall/Code/mirrorecho/superstudio/modules/buf.sc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								831,
+								831
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/randall/Code/mirrorecho/superstudio/modules/synth.sc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 231,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -428,48 +486,49 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "flute_example.sc",
+					"buffer": 4,
+					"file": "ghost.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1775,
+						"buffer_size": 2717,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								260,
-								260
+								511,
+								511
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
+							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "ghost_notes.sc",
+					"buffer": 5,
+					"file": "/home/randall/Code/mirrorecho/superstudio/modules/master.sc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3813,
+						"buffer_size": 1671,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								650,
-								650
+								268,
+								268
 							]
 						],
 						"settings":
@@ -478,154 +537,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 43.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "ghost.sc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2462,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								989,
-								989
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 345.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "ghost_synths.sc",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3801,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3741,
-								3741
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/randall/Code/mirrorecho/superstudio/_sync.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 314,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								285,
-								285
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/home/randall/Code/mirrorecho/superstudio/.gitignore",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 673,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								673,
-								673
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Theme - Afterglow/Prefs/Langs/Git.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/home/randall/Code/mirrorecho/superstudio/start.sc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2178,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1607,
-								1607
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 176.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -635,19 +551,19 @@
 			"sheets":
 			[
 				{
-					"buffer": 9,
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2113,
+						"buffer_size": 2914,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2113,
-								2113
+								2914,
+								2914
 							]
 						],
 						"settings":
@@ -658,10 +574,10 @@
 							"syntax": "Packages/supercollider-sublime/SuperCollider.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1426.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -695,7 +611,7 @@
 		"cols":
 		[
 			0.0,
-			0.648195060164,
+			0.636735979836,
 			1.0
 		],
 		"rows":

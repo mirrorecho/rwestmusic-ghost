@@ -1,9 +1,25 @@
 
+"/home/randall/Code/mirrorecho/superstudio/ss.sc".loadPaths;
+
+~ss.load;
+
+~ss.buf.loadLibrary("breath-in");
+
+~ss.buf['breath-in']['big-01'].play;
+~ss.buf['breath-in']['big-03'].play;
+~ss.buf['breath-in'].do {arg b; b.play; };
+~ss.buf['breath-in']['mid-01'].play;
+~ss.buf['breath-in']['mid-03'].play;
+
 (
 // STARTUP --- RUN FIRST
+
 s.freeAll;
+"/home/randall/Code/mirrorecho/superstudio/ss.sc".loadPaths;
+~ss.load;
+~ss.buf.loadLibrary("breath-in");
+
 ~masterTempoClock = TempoClock(92/60);
-~masterBus = Bus.audio(s,2);
 "ghost_synths.sc".loadRelative;
 )
 
@@ -20,6 +36,7 @@ p = Pbind(
 ).trace.play;
 )
 p.stop;
+
 (
 ~licks = [
 	[11, 23, 28, 30],
@@ -31,6 +48,7 @@ p = Pbind(
 	\dur, 0.25
 ).trace.play;
 )
+
 p.stop;
 
 Pspawner({ arg sp;

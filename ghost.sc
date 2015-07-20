@@ -7,6 +7,16 @@
 // sine (or other) waves with crazy vibrato
 // smoothGhosts: constantly changing pitches of several sine waves
 
+~ta = ();
+~ta["breath-in"] = "ppp";
+
+b = SoundFile.collectIntoBuffers("/home/randall/Echo/Sounds/Library/breath-in/*");
+
+SoundFile.collect("/home/randall/Echo/Sounds/Library/breath-in/*").do { arg file;
+	file.path.basename.splitext[0]
+};
+
+
 (
 ~libraryPath = "/home/randall/Echo/Sounds/Library/";
 
@@ -34,7 +44,7 @@ SynthDef(\breather, {arg bufnum;
 }).add;
 )
 
-
+Server.killAll;
 
 (
 var freq =  120;
