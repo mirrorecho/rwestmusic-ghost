@@ -1,42 +1,54 @@
 
-"../superstudio/ss.sc".loadRelative;
-
+(
+// STARTUP --- RUN FIRST
 "~/Code/mirrorecho/superstudio/ss.sc".standardizePath.load;
-
-~ss.load;
+~ss.start({
+	~ss.loadCommon({
+			~ss.buf.loadLibrary("breath-in");
+		});
+	});
+)
 
 ~ss.buf.loadLibrary("breath-in");
 
 ~ss.buf['breath-in']['big-01'].play;
+~ss.buf['breath-in']['big-02'].play;
 ~ss.buf['breath-in']['big-03'].play;
 ~ss.buf['breath-in'].do {arg b; b.play; };
 ~ss.buf['breath-in']['mid-01'].play;
 ~ss.buf['breath-in']['mid-03'].play;
 
 (
-// STARTUP --- RUN FIRST
-
-s.freeAll;
-"/home/randall/Code/mirrorecho/superstudio/ss.sc".loadPaths;
-~ss.load;
-~ss.buf.loadLibrary("breath-in");
-
 ~masterTempoClock = TempoClock(92/60);
 "ghost_synths.sc".loadRelative;
 )
 
-
-{var sig; sig = SinOsc.ar(440, mul:0.1); Out.ar(~masterBus, sig);}.play;
-
 (
 p = Pbind(
-	\instrument, \wobbleGhost,
-	\note, Prand([0,5,7, \rest], inf),
-	\octave, Prand([5,6,7,8], inf),
-	\wobbleHz, Pwhite(0.4, 8),
-	\spread, Pwhite(0.012, 0.22),
+	\instrument, "ss.buf.play",
+	\buffer, Pseq([
+		~ss.buf['breath-in']['small-01'],
+		~ss.buf['breath-in']['small-02'],
+		~ss.buf['breath-in']['small-03'],
+		~ss.buf['breath-in']['mid-01'],
+		~ss.buf['breath-in']['mid-02'],
+		~ss.buf['breath-in']['mid-03'],
+		~ss.buf['breath-in']['mid-04'],
+		~ss.buf['breath-in']['big-01'],
+		~ss.buf['breath-in']['big-02'],
+		~ss.buf['breath-in']['big-03'],
+		~ss.buf['breath-in']['big-04'],
+		], inf),
+	\amp, 1.0,
+	\dur, 2.0,
+	\rate, Pwhite(1, 1.4),
+	// \note, Prand([0,5,7, \rest], inf),
+	// \octave, Prand([5,6,7,8], inf),
+	// \wobbleHz, Pwhite(0.4, 8),
+	// \spread, Pwhite(0.012, 0.22),
 ).trace.play;
 )
+
 p.stop;
 
 (
