@@ -1,7 +1,7 @@
 // fulte example originally from here: http://ecmc.rochester.edu/ecmc/docs/supercollider/scbook/Ch21_Interface_Investigations/ixi%20SC%20tutorial/ixi_SC_tutorial_10.html
 (
 
-SynthDef("flute", { arg scl = 0.2, 
+SynthDef("ss.flute.example", { arg scl = 0.2, 
     pch = 72, 
     ipress = 0.9, 
     ibreath = 0.09, 
@@ -57,6 +57,6 @@ LocalOut.ar( fdbckArray );
 
 signalOut = avalue;
 
-OffsetOut.ar( 0, [ signalOut * kenv2, signalOut * kenv2 ] );
+OffsetOut.ar(~ss.bus.master, [ signalOut * kenv2, signalOut * kenv2 ] );
 
 }).add;

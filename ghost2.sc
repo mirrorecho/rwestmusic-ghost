@@ -4,10 +4,37 @@
 "~/Code/mirrorecho/superstudio/ss.sc".standardizePath.load;
 ~ss.start({
 	~ss.loadCommon({
+			// ~ss.load
 			~ss.buf.loadLibrary("breath-in");
+			~ss.midi.synth="ghost.flute";
 		});
 	});
 )
+
+f = 440;
+
+{ DynKlank.ar(`[[800, 1071, 1353, 1723], nil, [1, 1, 1, 1]], PinkNoise.ar(0.007)) }.play;
+
+{ DynKlank.ar(`[
+		[
+			Vibrato.ar(f, 4, 0.01), 
+			Vibrato.ar(f*2, 5, 0.01), 
+			Vibrato.ar(f*3, 3, 0.01), 
+			f*4, 
+			// f*5, 
+			// f*6
+		], 
+		[1, 0.8, 0.5, 0.4, 0.4, 0.2], 
+		[1, 1, 1, 1, 1, 1]
+	], 
+	PinkNoise.ar(0.007)) }.play;
+
+
+(
+{ Mix.ar(Formant.ar(f, [f*3, f*5, f*7, f*9], f*0.2, 0.09)) }.play
+)
+
+
 
 ~ss.buf.loadLibrary("breath-in");
 
@@ -40,7 +67,7 @@ p = Pbind(
 		~ss.buf['breath-in']['big-04'],
 		], inf),
 	\amp, 1.0,
-	\dur, 2.0,
+	\dur, 1.2,
 	\rate, Pwhite(1, 1.4),
 	// \note, Prand([0,5,7, \rest], inf),
 	// \octave, Prand([5,6,7,8], inf),

@@ -1,12 +1,55 @@
 (
-SynthDef("masterOut", {
-	var sig = In.ar(~masterBus,2);
-	sig = Limiter.ar(sig, 0.9);
-	sig = FreeVerb2.ar(sig[0],sig[1], room:0.66, mix:0.4);
-	Out.ar(0, sig);
+~ss.makeModule(
+"ghost.synth.library", // module name
+["synth"], // namespace hierarchy for module
+"Ghost Synths", // friendly name
+{ arg ss, module; // module function...
+
+
+SynthDef("ghost.flute", { 
+	arg freq=440, amp = 0.2, gate=1;
+	var sig, sig2, sigKlank, env, env2, trem2;
+
+	sig2 = Resonz.ar(BrownNoise.ar(4!2), Vibrato.ar(freq, 3.3, 0.01)*4, 0.01, 1);
+	sig2 = sig2 + Resonz.ar(PinkNoise.ar(0.44!2), Vibrato.ar(freq*2, 4.9, 0.02)*4, 0.2, 1);
+	sig2 = sig2 + Resonz.ar(BrownNoise.ar(0.22!2), Vibrato.ar(freq*3, 6, 0.02)*4, 0.4, 1);
+
+	sig2 = sig2 + PinkNoise.ar(mul:0.04);
+
+	sigKlank = Lag.ar(sig2 * 0.2, 0.01);
+	sigKlank = sigKlank + PinkNoise.ar(mul:0.01);
+
+
+	sig = DynKlank.ar(`[
+		[
+			Vibrato.ar(freq!2, 4, 0.01), 
+			Vibrato.ar(freq*2, 5, 0.01), 
+			Vibrato.ar(freq*3, 3, 0.01), 
+			freq*4, 
+			freq*5, 
+			freq*6
+		], 
+		[1, 0.8, 0.5, 0.4, 0.4, 0.2], 
+		[1, 1, 1, 1, 1, 1]
+	], 
+	sigKlank);
+	env = EnvGen.kr(Env.adsr(0.09, 0.12, 0.69, 0.2, 1, \sine), gate:gate, doneAction:2);
+	sig = sig * env * amp;
+
+	sig2=0;
+
+	env2 = EnvGen.kr(Env.adsr(0.1, 0.66, 0.4, 0.1, 1, \sine), gate:gate);
+	
+	trem2 = LFNoise2.kr(2.8).range(0.8, 1);
+
+	sig2 = sig2 * env2 * trem2 * amp;
+	sig = sig + sig2;
+
+	Out.ar(~ss.bus.master, sig);
 }).add;
 
-SynthDef(\wobbleGhost, {
+
+SynthDef("ghost.wobble", {
 	arg wobbleHz = 4, spread=0.125, freq=120, slideTime = 0.2, amp=0.6, gate=1;
 	var sig1, sig2, wobbleSig, wobbleRate, sigOut, env;
 	freq = Lag.kr(freq, slideTime);
@@ -19,10 +62,12 @@ SynthDef(\wobbleGhost, {
 	sigOut = Splay.ar([sig1, sig2], spread:0.8);
 	env = EnvGen.kr(Env.adsr(0.01, 0.12, 0.4, 4, 1, \sine), gate:gate, doneAction:2);
 	sigOut = sigOut * env;
-	Out.ar(~masterBus, sigOut);
+	Out.ar(~ss.bus.master, sigOut);
 }).add;
+)
 
-SynthDef(\smoothGhosts, {
+(
+SynthDef("ghost.smooth", {
 	arg moveHz=4, loFreq=440, hiFreq=880, gate=1, amp=1.0;
 	var freq, sig, sig2, env, ghostCount=22;
 	freq = LFNoise2.kr(moveHz!ghostCount).exprange(loFreq, hiFreq);
@@ -32,10 +77,10 @@ SynthDef(\smoothGhosts, {
 	sig2 = Splay.ar(sig, spread:0.9);
 	env = EnvGen.kr(Env.asr, gate:gate, doneAction:2);
 	sig2 = sig2 * env;
-	Out.ar(~masterBus, sig2);
+	Out.ar(~ss.bus.master, sig2);
 }).add;
 
-SynthDef( \noiseGhost, {
+SynthDef("ghost.noise", {
 	arg freq=220, gate=1, amp=1.0, slideTime = 1.0;
 	var sig, sig2, env;
 	freq = Lag.kr(freq, slideTime);
@@ -48,10 +93,10 @@ SynthDef( \noiseGhost, {
 	sig = Splay.ar(sig, spread:0.9);
 	env = EnvGen.kr(Env.asr(8, 1, 8, \sine), gate:gate, doneAction:2);
 	sig = sig * env;
-	Out.ar(~masterBus, sig);
+	Out.ar(~ss.bus.master, sig);
 }).add;
 
-SynthDef( \jiGhost, {
+SynthDef("ghost.ji", {
 	arg freq=220, jiFreq=110, gate=1, amp=1.0, slideTime = 2.0;
 	var sig, sig2, env, jiOsc1, jiOsc2, jiOsc3, ampOsc, sirenSig, jiSig;
 	freq = Lag.kr(freq, slideTime);
@@ -70,10 +115,10 @@ SynthDef( \jiGhost, {
 	sig = Splay.ar(sig, spread:0.9);
 	env = EnvGen.kr(Env.asr(8, 1, 8, \sine), gate:gate, doneAction:2);
 	sig = sig * env;
-	Out.ar(~masterBus, sig);
+	Out.ar(~ss.bus.master, sig);
 }).add;
 
-SynthDef( \claw, {
+SynthDef("ghost.claw", {
 	arg freq = 2000, amp=0.6; // assume gate is not needed since there is no sustain
 	var vibFreq, sig, sig2, env, release=3;
 	vibFreq = Vibrato.kr((freq!2), rate:12, depth:0.09, delay:0.01, onset:0.6, rateVariation:0.1, depthVariation:0.2);
@@ -84,10 +129,10 @@ SynthDef( \claw, {
 	sig = LPF.ar(sig, 11000);
 	sig = sig * env * amp;
 	sig = Splay.ar(sig, spread:0.9);
-	Out.ar(~masterBus, sig);
+	Out.ar(~ss.bus.master, sig);
 }).add;
 
-SynthDef( \jiGhost2,{
+SynthDef( "ghost.ji2",{
 	arg freq=55, amp=1.0, gate=1;
 	var sig, sig2, env;
 	sig = Saw.ar((freq!2), 0.09) + LFCub.ar(freq*2,mul:0.04) + LFCub.ar(freq*3,mul:0.02) + LFCub.ar(freq*4,mul:0.01);
@@ -95,10 +140,9 @@ SynthDef( \jiGhost2,{
 	sig = sig * amp;
 	env = EnvGen.kr(Env.asr(24, 1, 36, \sine), gate:gate, doneAction:2);
 	sig = sig * env;
-	Out.ar(~masterBus, sig);
+	Out.ar(~ss.bus.master, sig);
 }).add;
 
-~masterOut = Synth("masterOut");
+});
 
-"====LOADED SYNTHS===="
 )
